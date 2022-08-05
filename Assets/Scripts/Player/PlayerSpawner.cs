@@ -33,7 +33,7 @@ public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
     {
         if (runner.IsServer)
         {
-            NetworkObject playerObj = runner.Spawn(PlayerPrefab, PlayerSpawnPos, Quaternion.identity, player, InitializeObjBeforeSpawn);
+            NetworkObject playerObj = runner.Spawn(PlayerPrefab, Vector3.zero, Quaternion.identity, player, InitializeObjBeforeSpawn);
 
             PlayerData data = GameManager.Instance.GetPlayerData(player, runner);
             data.Instance = playerObj;
