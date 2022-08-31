@@ -14,7 +14,7 @@ public class EditorManager : MonoBehaviour
         int l = int.Parse(length.text);
         for (int x=0; x<l; ++x){
             for (int y=0; y<w; ++y){
-                Instantiate(block, new Vector3(x-5,y-3,0), Quaternion.identity);
+                Instantiate(block, new Vector3(x-3,y-1,0), Quaternion.identity);
             }
         }
    } 
