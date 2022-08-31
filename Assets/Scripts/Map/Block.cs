@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
-    public Block Up;
-    public Block Down;
-    public Block Left;
-    public Block Right;
+    public bool Up;
+    public bool Down;
+    public bool Left;
+    public bool Right;
 
     public BlockType type;
 }

@@ -2,5 +2,9 @@ public enum BlockType
 {
     Plain,
     Chance,
-    Luck
+    Luck,
+    Teleport,
+    Start,
+    End,
+    Shop
 }
