@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Block : MonoBehaviour
+public class Block: MonoBehaviour
 {
     public bool Up;
     public bool Down;
@@ -10,4 +10,9 @@ public class Block : MonoBehaviour
     public bool Right;
 
     public BlockType type;
+
+    //Constructor
+    public Block(BlockType bt){
+        type = bt;
+    }
 }
