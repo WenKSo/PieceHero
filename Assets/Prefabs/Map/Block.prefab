@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6017564708089778164}
   - component: {fileID: 6017564708089778165}
   - component: {fileID: 6017564708089778162}
-  - component: {fileID: 8843507592957887307}
+  - component: {fileID: 8746016619844374793}
   m_Layer: 0
   m_Name: Block
   m_TagString: Untagged
@@ -75,8 +75,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 384a7eb584ee0d14ab9d28127023a5df, type: 3}
-  m_Color: {r: 0.7882353, g: 0.94509804, b: 0.9329793, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 4ece7e2f18329694f9f70aebcc16dd6d, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -102,8 +102,18 @@ MonoBehaviour:
   Down: 0
   Left: 0
   Right: 0
-  type: 0
---- !u!61 &8843507592957887307
+  type: 7
+  spriteRenderer: {fileID: 6017564708089778165}
+  blank: {fileID: 21300000, guid: 4ece7e2f18329694f9f70aebcc16dd6d, type: 3}
+  select: {fileID: 21300000, guid: b1ac4a96ad213c84a823480b35206207, type: 3}
+  plain: {fileID: 21300000, guid: 6ea73580a6db83746b90e6f6125ecd0c, type: 3}
+  start: {fileID: 21300000, guid: b1524b7084b49494a88ef48052337803, type: 3}
+  finish: {fileID: 21300000, guid: 0ec79ca890dda744cbb36d3286c850c3, type: 3}
+  shop: {fileID: 21300000, guid: b9fad4ff9dd3b0f458a2cf480e979434, type: 3}
+  luck: {fileID: 21300000, guid: 4bbe8bf3c2bafae449de6985c7ec3d3b, type: 3}
+  chance: {fileID: 21300000, guid: 99b6fe45d9ede004baa290a94b0f5539, type: 3}
+  teleport: {fileID: 21300000, guid: 0bd433802bdbdf54584a41f440c70e54, type: 3}
+--- !u!61 &8746016619844374793
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

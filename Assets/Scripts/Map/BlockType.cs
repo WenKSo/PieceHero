@@ -5,6 +5,7 @@ public enum BlockType
     Luck,
     Teleport,
     Start,
-    End,
-    Shop
+    Finish,
+    Shop,
+    Blank
 }
