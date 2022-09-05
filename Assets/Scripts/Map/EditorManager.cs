@@ -1,13 +1,20 @@
 using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
 public class EditorManager : MonoBehaviour
 {
+    public GameObject Map;
+    private int width;
+    private int length;
+
     public GameObject block;
-    public TMP_InputField width;
-    public TMP_InputField length;
+    public TMP_InputField widthText;
+    public TMP_InputField lengthText;
+    public GameObject MapSetting;
+    public GameObject BlockPanel;
 
     //All blocks
     public GameObject plain;
@@ -68,26 +75,41 @@ public class EditorManager : MonoBehaviour
                 default:
                     break;
             }
-        }
-        
+        }   
    } 
 
    //Create Canvas for putting blocks into it 
    public void CreateCanvas()
    {
-        int w =  int.Parse(width.text);
-        int l = int.Parse(length.text);
-        for (int x=0; x<l; ++x)
+        width =  int.Parse(widthText.text);
+        length = int.Parse(lengthText.text);
+        for (int x=-length / 2; x< length / 2; ++x)
         {
-            for (int y=0; y<w; ++y)
+            for (int y=-width / 2; y< width / 2; ++y)
             {
-                Instantiate(block, new Vector3(x-3,y-1,0), Quaternion.identity);
+                Instantiate(block, new Vector3(x,y,0), Quaternion.identity);
             }
         }
+        BlockPanel.SetActive(true);
+        MapSetting.SetActive(false);
    }
-   
-   Block lastTarget;
-   void Update()
+
+    //Save Map Data
+    public void Save()
+    {
+        Map map = Map.GetComponent<Map>();
+        map.width = width;
+        map.length = length;
+        Block[] bd = GameObject.FindObjectsOfType<Block>();
+        map.blocks = new BlockData[width*length];
+        for (int i = 0; i < bd.Length; i++)
+        {
+            map.blocks[i] = new BlockData(bd[i].type, bd[i].Up, bd[i].Down, bd[i].Left, bd[i].Right);
+        }
+        map.SaveToString();
+    }
+
+    void Update()
    {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3( Input.mousePosition.x, Input.mousePosition.y, 10.0f));
         if(select)
@@ -98,10 +120,8 @@ public class EditorManager : MonoBehaviour
             if(targetObject && targetObject.GetComponent<Block>().type == BlockType.Blank)
             {
                 Block target = targetObject.GetComponent<Block>();
-                target.ChangeSprite(1);
                 if(Input.GetMouseButtonDown(0))
                 {
-                    Debug.Log(currentType);
                     target.ChangeSprite(currentType);
                     select = false;
                     Destroy(selectedObject);

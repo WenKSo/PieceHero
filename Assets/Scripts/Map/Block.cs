@@ -22,7 +22,25 @@ public class Block: MonoBehaviour
     public Sprite luck;
     public Sprite chance;
     public Sprite teleport;
-    
+
+    //Prefabs
+    public GameObject arrowLeft;
+    public GameObject arrowRight;
+    public GameObject arrowUp;
+    public GameObject arrowDown;
+
+    //References for arrows
+    private GameObject refLeft;
+    private GameObject refRight;
+    private GameObject refUp;
+    private GameObject refDown;
+
+    //Constructor
+    public Block(BlockType bt)
+    {
+        type = bt;
+    }
+
     public void ChangeSprite(int selectType)
     {
         switch(selectType)
@@ -66,8 +84,66 @@ public class Block: MonoBehaviour
         
     }
 
-    //Constructor
-    public Block(BlockType bt){
-        type = bt;
+    private void OnMouseOver()
+    {
+        if(type == BlockType.Blank)
+        {
+            spriteRenderer.sprite = select;
+        }
+        
+        if(Input.GetMouseButtonDown(1))
+        {
+            Clear();
+        }
+
+        if (Input.GetMouseButton(0) && type != BlockType.Blank)
+        {
+            if(Left == false && Input.GetAxis("Mouse X") < -0.2)
+            {
+                Left = true;
+                refLeft = Instantiate(arrowLeft, transform.position, Quaternion.identity);
+            }
+
+            if (Right == false && Input.GetAxis("Mouse X") > 0.2)
+            {
+                Right = true;
+                refRight = Instantiate(arrowRight, transform.position, Quaternion.identity);
+            }
+
+            if (Up == false && Input.GetAxis("Mouse Y") > 0.2)
+            {
+                Up = true;
+                refUp = Instantiate(arrowUp, transform.position, Quaternion.identity);
+            }
+
+            if (Down == false && Input.GetAxis("Mouse Y") < -0.2)
+            {
+                Down = true;
+                refDown = Instantiate(arrowDown, transform.position, Quaternion.identity);
+            }
+
+        }
+    }
+    
+    private void OnMouseExit()
+    {
+        if (type == BlockType.Blank)
+        {
+            spriteRenderer.sprite = blank;
+        }
+    }
+
+    public void Clear()
+    {
+        spriteRenderer.sprite = blank;
+        type = BlockType.Blank;
+        Up = false;
+        Down = false;
+        Left = false;
+        Right = false;
+        Destroy(refLeft);
+        Destroy(refRight);
+        Destroy(refUp);
+        Destroy(refDown);
     }
 }

@@ -106,13 +106,17 @@ MonoBehaviour:
   spriteRenderer: {fileID: 6017564708089778165}
   blank: {fileID: 21300000, guid: 4ece7e2f18329694f9f70aebcc16dd6d, type: 3}
   select: {fileID: 21300000, guid: b1ac4a96ad213c84a823480b35206207, type: 3}
-  plain: {fileID: 21300000, guid: 6ea73580a6db83746b90e6f6125ecd0c, type: 3}
+  plain: {fileID: 21300000, guid: ba9aa4be6d50c494ab274e8ee28d431b, type: 3}
   start: {fileID: 21300000, guid: b1524b7084b49494a88ef48052337803, type: 3}
   finish: {fileID: 21300000, guid: 0ec79ca890dda744cbb36d3286c850c3, type: 3}
   shop: {fileID: 21300000, guid: b9fad4ff9dd3b0f458a2cf480e979434, type: 3}
   luck: {fileID: 21300000, guid: 4bbe8bf3c2bafae449de6985c7ec3d3b, type: 3}
   chance: {fileID: 21300000, guid: 99b6fe45d9ede004baa290a94b0f5539, type: 3}
   teleport: {fileID: 21300000, guid: 0bd433802bdbdf54584a41f440c70e54, type: 3}
+  arrowLeft: {fileID: 3876843915016666421, guid: ab3583af5d0b38c4d9015565dabd0cf1, type: 3}
+  arrowRight: {fileID: 883235640225631412, guid: 86716831b933b534284657322c64d07f, type: 3}
+  arrowUp: {fileID: 2001647398144046928, guid: 2b8cc89752c4cb043b049cfe566bec61, type: 3}
+  arrowDown: {fileID: 4336194903245522353, guid: c40efaf471c12c343b27e045666e69cd, type: 3}
 --- !u!61 &8746016619844374793
 BoxCollider2D:
   m_ObjectHideFlags: 0
