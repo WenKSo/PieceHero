@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using System.Web.Script.Serialization;
 
+[Serializable]
 public class Map : MonoBehaviour
 {
     //public string Name;
@@ -13,7 +13,7 @@ public class Map : MonoBehaviour
 
     public void SaveToString()
     {
-        var json = new JavaScriptSerializer().Serialize(this);
-        Console.WriteLine(json);
+        string json = JsonHelper.ToJson(blocks);
+        Debug.Log(json);
     }
 }
