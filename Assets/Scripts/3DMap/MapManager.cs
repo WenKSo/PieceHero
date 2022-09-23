@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class MapManager : MonoBehaviour
 {
-    public iont row(){
-        Random r = new Random();
-        int rInt = r.Next(0, 100);
-        return rInt;
+    public void row(){
+        var r = new System.Random();
+        int rInt = r.Next(1, 7);
+        Debug.Log(rInt);
+        //return rInt;
     }
 }
