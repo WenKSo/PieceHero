@@ -10,12 +10,14 @@ public class Player : MonoBehaviour
         for(int i=0;i<steps;i++)
         {
             currentSquare = currentSquare.next;
-            Vector3 pos = currentSquare.transform.position;
-            pos.y = transform.position.y;
-            transform.position = pos; 
+            updatePos();   
         }
-        if(currentSquare.type == SquareType.Finish){
-            Debug.Log("You win!");
-        }
+    }
+
+    public void updatePos()
+    {
+        Vector3 pos = currentSquare.transform.position;
+        pos.y = transform.position.y;
+        transform.position = pos;
     }
 }

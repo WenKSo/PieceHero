@@ -7,11 +7,5 @@ public class Square : MonoBehaviour
     public Square next;
     public SquareType type;
 
-    //Constructor
-    public Square(SquareType st)
-    {
-        type = st;
-    }
-    
-     
+    public virtual void transferTo(Player player){}
 }
