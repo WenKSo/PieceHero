@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public Square currentSquare;
+    public ColorType color;
 
     public void move(int steps){
         for(int i=0;i<steps;i++)
@@ -19,5 +20,5 @@ public class Player : MonoBehaviour
         Vector3 pos = currentSquare.transform.position;
         pos.y = transform.position.y;
         transform.position = pos;
-    }
+    } 
 }
