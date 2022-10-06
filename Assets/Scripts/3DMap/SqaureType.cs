@@ -6,6 +6,7 @@ public enum SquareType
     Teleport,
     Start,
     Finish,
-    Shop
+    Shop,
+    Special
 }
 

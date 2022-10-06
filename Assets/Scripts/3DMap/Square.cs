@@ -13,6 +13,7 @@ public enum ColorType
 public class Square : MonoBehaviour
 {
     public Square next;
+    public Square next2;
     public SquareType type;
     public ColorType color;
 
@@ -20,9 +21,10 @@ public class Square : MonoBehaviour
 
     public void jump(Player player)
     {
-        if(player.color == color)
+        if(player.color == color && type != SquareType.Special)
         {
             player.move(4);
         }    
     }
 }
+ 

@@ -8,9 +8,28 @@ public class Player : MonoBehaviour
     public ColorType color;
 
     public void move(int steps){
-        for(int i=0;i<steps;i++)
+        //当已经在最后的胜利通道时
+        Square temp = currentSquare;
+        int rsteps = steps;
+        for(int i=0;i<steps;i++){
+            temp = temp.next;
+            if(currentSquare.type == SquareType.Finish && i<(steps-1))
+            {
+                rsteps = i;
+                break;
+            }
+        }
+
+        for(int i=0;i<rsteps;i++)
         {
-            currentSquare = currentSquare.next;
+            if(currentSquare.type == SquareType.Special)
+            {
+                currentSquare = currentSquare.next2;
+            }
+            else
+            {
+                currentSquare = currentSquare.next;
+            }
             updatePos();   
         }
     }
