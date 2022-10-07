@@ -22,6 +22,8 @@ public class MapManager : MonoBehaviour
                 break;
             case SquareType.Chance:
                 break;
+            case SquareType.Shop:
+                break;
             default:
                 // code block
                 break;
