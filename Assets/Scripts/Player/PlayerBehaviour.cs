@@ -44,7 +44,6 @@ public class PlayerBehaviour : NetworkBehaviour
             GetComponentInChildren<SpriteRenderer>().sortingOrder += 1;
         }
         GetComponentInChildren<NicknameText>().SetupNick(Nickname.ToString());
-        GetComponentInChildren<SpriteRenderer>().color = PlayerColor;
     }
 
     [Rpc(sources: RpcSources.InputAuthority, targets: RpcTargets.StateAuthority)]

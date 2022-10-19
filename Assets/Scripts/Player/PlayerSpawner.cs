@@ -8,10 +8,12 @@ using System;
 public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
 {
     public NetworkPrefabRef PlayerPrefab;
+    public static Vector3 PlayerSpawnPos;
 
     private void Awake()
     {
-
+        PlayerSpawnPos = GameObject.FindGameObjectWithTag("Respawn").transform.position;
+        Log.Debug(PlayerSpawnPos);
     }
 
     /// <summary>
@@ -22,8 +24,11 @@ public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
     {
         if (!runner.IsClient)
         {
+            Log.Debug("Debug:Start to Spawn");
+            PlayerSpawnPos = GameObject.FindGameObjectWithTag("Respawn").transform.position;
             foreach (var player in runner.ActivePlayers)
             {
+                Log.Debug("Player: " + GameManager.Instance.GetPlayerData(player, runner).Nick.ToString());
                 SpawnPlayer(runner, player, GameManager.Instance.GetPlayerData(player, runner).Nick.ToString());
             }
         }
@@ -33,12 +38,13 @@ public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
     {
         if (runner.IsServer)
         {
+            Log.Debug("Spawn Player...");
             NetworkObject playerObj = runner.Spawn(PlayerPrefab, Vector3.zero, Quaternion.identity, player, InitializeObjBeforeSpawn);
 
             PlayerData data = GameManager.Instance.GetPlayerData(player, runner);
             data.Instance = playerObj;
 
-            playerObj.GetComponent<PlayerBehaviour>().Nickname = data.Nick;
+            playerObj.GetComponent<Player>().Nickname = data.Nick;
         }
     }
 
@@ -50,8 +56,7 @@ public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
 
     private void InitializeObjBeforeSpawn(NetworkRunner runner, NetworkObject obj)
     {
-        var behaviour = obj.GetComponent<PlayerBehaviour>();
-        behaviour.PlayerColor = new Color32((byte)UnityEngine.Random.Range(0, 255), (byte)UnityEngine.Random.Range(0, 255), (byte)UnityEngine.Random.Range(0, 255), 255);
+        var behaviour = obj.GetComponent<Player>();
     }
 
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)

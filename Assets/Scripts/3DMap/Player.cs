@@ -6,25 +6,31 @@ using Fusion;
 
 public class Player : NetworkBehaviour
 {
-    
-    public Square currentSquare { get; set; }
-    [Networked]
-    public ColorType color { get; set; }
+    public Square currentSquare;
+    public ColorType color; 
     [Networked(OnChanged = nameof(OnNickChanged))]
     public NetworkString<_16> Nickname { get; set; }
     public int PlayerID { get; private set; }
+    [Networked]
+    private NetworkBool Finished { get; set; }
 
     public override void Spawned()
     {
         PlayerID = Object.InputAuthority;
-
+        Log.Debug("Debug inputauthority");
         if (Object.HasInputAuthority)
         {
+            Log.Debug("has input authority");
             if (Nickname == string.Empty)
             {
+                Log.Debug("1");
                 RPC_SetNickname(PlayerPrefs.GetString("Nick"));
+                Log.Debug("2");
             }
         }
+        Log.Debug("Show " + PlayerPrefs.GetString("Nick"));
+        Log.Debug(GetComponentInChildren<NicknameText>());
+        GetComponentInChildren<NicknameText>().SetupNick(Nickname.ToString());
     }
 
     [Rpc(sources: RpcSources.InputAuthority, targets: RpcTargets.StateAuthority)]
