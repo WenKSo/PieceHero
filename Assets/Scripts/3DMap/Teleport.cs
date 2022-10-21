@@ -12,9 +12,9 @@ public class Teleport : Square
         type = SquareType.Teleport;
     }
 
-    public override void transferTo(Player player)
+    public override void transferTo(Piece piece)
     {  
-        player.currentSquare = destination;
-        player.updatePos();
+        piece.currentSquare = destination;
+        piece.updatePos();
     }
 }

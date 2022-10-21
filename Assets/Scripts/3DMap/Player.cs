@@ -6,8 +6,6 @@ using Fusion;
 
 public class Player : NetworkBehaviour
 {
-    public Square currentSquare;
-    public ColorType color; 
     [Networked(OnChanged = nameof(OnNickChanged))]
     public NetworkString<_16> Nickname { get; set; }
     public int PlayerID { get; private set; }
@@ -17,20 +15,14 @@ public class Player : NetworkBehaviour
     public override void Spawned()
     {
         PlayerID = Object.InputAuthority;
-        Log.Debug("Debug inputauthority");
         if (Object.HasInputAuthority)
         {
-            Log.Debug("has input authority");
             if (Nickname == string.Empty)
             {
-                Log.Debug("1");
                 RPC_SetNickname(PlayerPrefs.GetString("Nick"));
-                Log.Debug("2");
             }
         }
-        Log.Debug("Show " + PlayerPrefs.GetString("Nick"));
-        Log.Debug(GetComponentInChildren<NicknameText>());
-        GetComponentInChildren<NicknameText>().SetupNick(Nickname.ToString());
+        GameObject.FindGameObjectWithTag("Nick").GetComponentInChildren<NicknameText>().SetupNick(Nickname.ToString());
     }
 
     [Rpc(sources: RpcSources.InputAuthority, targets: RpcTargets.StateAuthority)]
@@ -46,40 +38,11 @@ public class Player : NetworkBehaviour
 
     private void OnNickChanged()
     {
-        GetComponentInChildren<NicknameText>().SetupNick(Nickname.ToString());
+        //GetComponentInChildren<NicknameText>().SetupNick(Nickname.ToString());
     }
 
-    public void move(int steps){
-        //当已经在最后的胜利通道时
-        Square temp = currentSquare;
-        int rsteps = steps;
-        for(int i=0;i<steps;i++){
-            temp = temp.next;
-            if(currentSquare.type == SquareType.Finish && i<(steps-1))
-            {
-                rsteps = i;
-                break;
-            }
-        }
-
-        for(int i=0;i<rsteps;i++)
-        {
-            if(currentSquare.type == SquareType.Special)
-            {
-                currentSquare = currentSquare.next2;
-            }
-            else
-            {
-                currentSquare = currentSquare.next;
-            }
-            updatePos();   
-        }
-    }
-
-    public void updatePos()
+    public void SpawnPieces()
     {
-        Vector3 pos = currentSquare.transform.position;
-        pos.y = transform.position.y;
-        transform.position = pos;
-    } 
+        //var obj = Runner.Spawn(prefab, Vector3.zero, Quaternion.identity, Runner.LocalPlayer, MyOnBeforeSpawnDelegate, key);
+    }
 }

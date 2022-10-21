@@ -13,7 +13,6 @@ public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
     private void Awake()
     {
         PlayerSpawnPos = GameObject.FindGameObjectWithTag("Respawn").transform.position;
-        Log.Debug(PlayerSpawnPos);
     }
 
     /// <summary>
@@ -24,11 +23,9 @@ public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
     {
         if (!runner.IsClient)
         {
-            Log.Debug("Debug:Start to Spawn");
             PlayerSpawnPos = GameObject.FindGameObjectWithTag("Respawn").transform.position;
             foreach (var player in runner.ActivePlayers)
             {
-                Log.Debug("Player: " + GameManager.Instance.GetPlayerData(player, runner).Nick.ToString());
                 SpawnPlayer(runner, player, GameManager.Instance.GetPlayerData(player, runner).Nick.ToString());
             }
         }
@@ -38,7 +35,6 @@ public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
     {
         if (runner.IsServer)
         {
-            Log.Debug("Spawn Player...");
             NetworkObject playerObj = runner.Spawn(PlayerPrefab, Vector3.zero, Quaternion.identity, player, InitializeObjBeforeSpawn);
 
             PlayerData data = GameManager.Instance.GetPlayerData(player, runner);

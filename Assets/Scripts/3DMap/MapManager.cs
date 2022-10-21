@@ -1,24 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Fusion;
 
 public class MapManager : MonoBehaviour
 {
-    public Player p1;
+    public Piece piece;
+    public NetworkObject nick;
 
     public void row()
     {
         var r = new System.Random();
         int rInt = r.Next(1, 7);
         Debug.Log(rInt);
-        p1.move(rInt);
-        switch(p1.currentSquare.type) 
+        piece.move(rInt);
+        switch(piece.currentSquare.type) 
         {
             case SquareType.Finish:
                 Debug.Log("You win!");
                 break;
             case SquareType.Teleport:
-                p1.currentSquare.transferTo(p1);
+                piece.currentSquare.transferTo(piece);
                 break;
             case SquareType.Chance:
                 break;
@@ -28,5 +30,12 @@ public class MapManager : MonoBehaviour
                 // code block
                 break;
         }
+    }
+
+    public void rowtest()
+    {
+        var r = new System.Random();
+        int rInt = r.Next(1, 7);
+        nick.GetComponent<NicknameText>().SetNick(rInt);
     }
 }

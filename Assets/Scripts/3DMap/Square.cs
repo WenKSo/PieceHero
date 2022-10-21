@@ -12,18 +12,19 @@ public enum ColorType
 
 public class Square : MonoBehaviour
 {
+    public int id;
     public Square next;
     public Square next2;
     public SquareType type;
     public ColorType color;
 
-    public virtual void transferTo(Player player){}
+    public virtual void transferTo(Piece piece){}
 
-    public void jump(Player player)
+    public void jump(Piece piece)
     {
-        if(player.color == color && type != SquareType.Special)
+        if(piece.color == color && type != SquareType.Special)
         {
-            player.move(4);
+            piece.move(4);
         }    
     }
 }
