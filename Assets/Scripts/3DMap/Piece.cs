@@ -12,6 +12,11 @@ public class Piece : NetworkBehaviour
     [Networked]
     private NetworkBool Finished { get; set; }
 
+    // private void Spawned()
+    // {
+
+    // }
+
     public void move(int steps){
         //当已经在最后的胜利通道时
         Square temp = currentSquare;

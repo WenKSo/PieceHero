@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 1
+  Piece: {fileID: 2060989038441915266, guid: 1b7169af0bd5d134b842347ebae9d0f9, type: 3}
   _Nickname:
     _length: 0
     _data:

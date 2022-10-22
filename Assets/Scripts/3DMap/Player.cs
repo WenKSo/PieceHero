@@ -6,11 +6,15 @@ using Fusion;
 
 public class Player : NetworkBehaviour
 {
+    public GameObject Piece;
+
+    #region NetworkedVariables
     [Networked(OnChanged = nameof(OnNickChanged))]
     public NetworkString<_16> Nickname { get; set; }
     public int PlayerID { get; private set; }
     [Networked]
     private NetworkBool Finished { get; set; }
+    #endregion
 
     public override void Spawned()
     {
@@ -23,6 +27,7 @@ public class Player : NetworkBehaviour
             }
         }
         GameObject.FindGameObjectWithTag("Nick").GetComponentInChildren<NicknameText>().SetupNick(Nickname.ToString());
+        SpawnPieces();
     }
 
     [Rpc(sources: RpcSources.InputAuthority, targets: RpcTargets.StateAuthority)]
@@ -44,5 +49,16 @@ public class Player : NetworkBehaviour
     public void SpawnPieces()
     {
         //var obj = Runner.Spawn(prefab, Vector3.zero, Quaternion.identity, Runner.LocalPlayer, MyOnBeforeSpawnDelegate, key);
+        GameObject[] startSquares = GameObject.FindGameObjectsWithTag("StartYellow");
+        foreach (GameObject i in startSquares)
+        {
+            var obj = Runner.Spawn(Piece, i.transform.position, Quaternion.identity, Runner.LocalPlayer, InitializeObjBeforeSpawn, predictionKey: null);
+            obj.GetComponent<Piece>().currentSquare = i.GetComponent<Square>();
+        }
+    }
+
+
+    private void InitializeObjBeforeSpawn(NetworkRunner runner, NetworkObject obj)
+    {
     }
 }
