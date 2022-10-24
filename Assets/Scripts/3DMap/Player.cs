@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using Fusion;
 
 public class Player : NetworkBehaviour
 {
-    public GameObject Piece;
+    public NetworkPrefabRef Piece;
 
     #region NetworkedVariables
     [Networked(OnChanged = nameof(OnNickChanged))]
