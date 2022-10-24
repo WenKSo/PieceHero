@@ -3794,8 +3794,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b228af965a22ae64baae975c77bbd882, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
   piece: {fileID: 0}
   nick: {fileID: 390271685}
+  map: []
 --- !u!114 &598334961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3818,6 +3820,7 @@ MonoBehaviour:
     RawGuidValue: 219d4583ca364902ad99ce5267a13556
   NestedObjects: []
   NetworkedBehaviours:
+  - {fileID: 598334960}
   - {fileID: 598334962}
   SimulationBehaviours: []
 --- !u!114 &598334962
@@ -5911,7 +5914,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 598334960}
         m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
-        m_MethodName: rowtest
+        m_MethodName: row
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

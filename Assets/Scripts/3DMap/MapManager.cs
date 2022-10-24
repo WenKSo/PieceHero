@@ -3,13 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
 
-public class MapManager : MonoBehaviour
+public class MapManager : NetworkBehaviour
 {
     public Piece piece;
     public NetworkObject nick;
+    public Square[] map;
+
+    void Start()
+    {
+        assignId();
+    }
+
+    private void findPiece()
+    {
+        GameObject[] pieces = GameObject.FindGameObjectsWithTag("Piece");
+        foreach(GameObject p in pieces)
+        {
+            Log.Debug("Debug 1");
+            if(p.GetComponent<NetworkObject>().HasInputAuthority)
+            {
+                Log.Debug("Debug 2");
+                piece = p.GetComponent<Piece>();
+                Log.Debug(p.GetComponent<Piece>()==null);
+                return;
+            }
+        }
+    }
 
     public void row()
-    {
+    {   
+        findPiece();
         var r = new System.Random();
         int rInt = r.Next(1, 7);
         Debug.Log(rInt);
@@ -32,10 +55,21 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    public void rowtest()
+    public void assignId()
     {
-        var r = new System.Random();
-        int rInt = r.Next(1, 7);
-        nick.GetComponent<NicknameText>().SetNick(rInt);
+        map = FindObjectsOfType<Square>();
+        int count = 0;
+        foreach (Square i in map)
+        {
+            i.id = count;
+            count++;
+        }
     }
+
+    // public void rowtest()
+    // {
+    //     var r = new System.Random();
+    //     int rInt = r.Next(1, 7);
+    //     nick.GetComponent<NicknameText>().SetNick(rInt);
+    // }
 }

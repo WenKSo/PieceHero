@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,7 +27,7 @@ public class Player : NetworkBehaviour
             }
         }
         GameObject.FindGameObjectWithTag("Nick").GetComponentInChildren<NicknameText>().SetupNick(Nickname.ToString());
-        SpawnPieces();
+        SpawnPieces(Runner);
     }
 
     [Rpc(sources: RpcSources.InputAuthority, targets: RpcTargets.StateAuthority)]
@@ -47,17 +46,19 @@ public class Player : NetworkBehaviour
         //GetComponentInChildren<NicknameText>().SetupNick(Nickname.ToString());
     }
 
-    public void SpawnPieces()
+    /// <param name="runner"></param>
+    public void SpawnPieces(NetworkRunner runner)
     {
-        //var obj = Runner.Spawn(prefab, Vector3.zero, Quaternion.identity, Runner.LocalPlayer, MyOnBeforeSpawnDelegate, key);
-        GameObject[] startSquares = GameObject.FindGameObjectsWithTag("StartYellow");
-        foreach (GameObject i in startSquares)
+        if(runner.IsServer)
         {
-            var obj = Runner.Spawn(Piece, i.transform.position, Quaternion.identity, Runner.LocalPlayer, InitializeObjBeforeSpawn, predictionKey: null);
-            obj.GetComponent<Piece>().currentSquare = i.GetComponent<Square>();
+            GameObject[] startSquares = GameObject.FindGameObjectsWithTag("StartYellow");
+            foreach (GameObject i in startSquares)
+            {
+                NetworkObject piece = Runner.Spawn(Piece, i.transform.position, Quaternion.identity, Runner.LocalPlayer, InitializeObjBeforeSpawn, predictionKey: null);
+                piece.GetComponent<Piece>().currentSquare = i.GetComponent<Square>();
+            }
         }
     }
-
 
     private void InitializeObjBeforeSpawn(NetworkRunner runner, NetworkObject obj)
     {

@@ -7,6 +7,7 @@ using Fusion;
 public class Piece : NetworkBehaviour
 {
     [Networked] private int squareId { get; set; }
+    [Networked] private Vector3 position { get; set; }
     public Square currentSquare;
     public ColorType color;
     [Networked]
@@ -49,11 +50,20 @@ public class Piece : NetworkBehaviour
         Vector3 pos = currentSquare.transform.position;
         pos.y = transform.position.y;
         transform.position = pos;
+        position = transform.position;
     }
+
+    // public Square findSquare(int id)
+    // {
+    //     return map[id];
+    // }
 
     public override void FixedUpdateNetwork()
     {
-        squareId = currentSquare.id;
-        updatePos();
+        if(Runner.IsServer)
+        {
+            position = transform.position;
+        }
+        transform.position = position;
     } 
 }
