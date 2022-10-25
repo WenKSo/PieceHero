@@ -19,12 +19,9 @@ public class MapManager : NetworkBehaviour
         GameObject[] pieces = GameObject.FindGameObjectsWithTag("Piece");
         foreach(GameObject p in pieces)
         {
-            Log.Debug("Debug 1");
             if(p.GetComponent<NetworkObject>().HasInputAuthority)
             {
-                Log.Debug("Debug 2");
                 piece = p.GetComponent<Piece>();
-                Log.Debug(p.GetComponent<Piece>()==null);
                 return;
             }
         }
@@ -32,11 +29,13 @@ public class MapManager : NetworkBehaviour
 
     public void row()
     {   
-        findPiece();
+        findPiece(); 
         var r = new System.Random();
         int rInt = r.Next(1, 7);
         Debug.Log(rInt);
+        piece.currentSquare = map[piece.squareId];
         piece.move(rInt);
+        piece.squareId = piece.currentSquare.id;
         switch(piece.currentSquare.type) 
         {
             case SquareType.Finish:

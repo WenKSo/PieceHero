@@ -6,7 +6,7 @@ using Fusion;
 
 public class Piece : NetworkBehaviour
 {
-    [Networked] private int squareId { get; set; }
+    [Networked] public int squareId { get; set; }
     [Networked] private Vector3 position { get; set; }
     public Square currentSquare;
     public ColorType color;
@@ -23,7 +23,9 @@ public class Piece : NetworkBehaviour
         Square temp = currentSquare;
         int rsteps = steps;
         for(int i=0;i<steps;i++){
+            Log.Debug(temp);
             temp = temp.next;
+            Log.Debug(temp);
             if(currentSquare.type == SquareType.Finish && i<(steps-1))
             {
                 rsteps = i;
@@ -41,13 +43,15 @@ public class Piece : NetworkBehaviour
             {
                 currentSquare = currentSquare.next;
             }
+            squareId = currentSquare.id;
             updatePos();   
         }
     }
 
     public void updatePos()
     {
-        Vector3 pos = currentSquare.transform.position;
+        Vector3 pos = FindObjectOfType<MapManager>().GetComponent<MapManager>().map[squareId].transform.position;
+        Log.Debug(squareId);
         pos.y = transform.position.y;
         transform.position = pos;
         position = transform.position;

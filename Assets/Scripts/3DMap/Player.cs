@@ -54,8 +54,8 @@ public class Player : NetworkBehaviour
             GameObject[] startSquares = GameObject.FindGameObjectsWithTag("StartYellow");
             foreach (GameObject i in startSquares)
             {
-                NetworkObject piece = Runner.Spawn(Piece, i.transform.position, Quaternion.identity, Runner.LocalPlayer, InitializeObjBeforeSpawn, predictionKey: null);
-                piece.GetComponent<Piece>().currentSquare = i.GetComponent<Square>();
+                NetworkObject piece = Runner.Spawn(Piece, i.transform.position, Quaternion.identity, PlayerID, InitializeObjBeforeSpawn, predictionKey: null);
+                piece.GetComponent<Piece>().squareId = i.GetComponent<Square>().id;
             }
         }
     }
