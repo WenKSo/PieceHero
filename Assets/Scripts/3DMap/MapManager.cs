@@ -27,15 +27,15 @@ public class MapManager : NetworkBehaviour
         }
     }
 
-    public void row()
+    public void roll()
     {   
+        if(Runner.IsClient) return;
         findPiece(); 
         var r = new System.Random();
         int rInt = r.Next(1, 7);
         Debug.Log(rInt);
         piece.currentSquare = map[piece.squareId];
         piece.move(rInt);
-        piece.squareId = piece.currentSquare.id;
         switch(piece.currentSquare.type) 
         {
             case SquareType.Finish:
