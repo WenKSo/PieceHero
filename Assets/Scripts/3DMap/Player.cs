@@ -14,6 +14,7 @@ public class Player : NetworkBehaviour
     public int PlayerID { get; private set; }
     [Networked]
     private NetworkBool Finished { get; set; }
+    [Networked] public NetworkButtons ButtonsPrevious { get; set; }
     #endregion
 
     public override void Spawned()
@@ -62,5 +63,26 @@ public class Player : NetworkBehaviour
 
     private void InitializeObjBeforeSpawn(NetworkRunner runner, NetworkObject obj)
     {
+    }
+
+    public override void FixedUpdateNetwork() 
+    {
+        if (GetInput<PlayerInput>(out var input) == false) return;
+
+        // compute pressed/released state
+        var pressed = input.Buttons.GetPressed(ButtonsPrevious);
+        var released = input.Buttons.GetReleased(ButtonsPrevious);
+
+        // store latest input as 'previous' state we had
+        ButtonsPrevious = input.Buttons;
+
+        if (pressed.IsSet(PlayerButtons.Roll)) {
+            roll();
+        }
+    }
+
+    void roll(){
+        MapManager mapManager = FindObjectOfType<MapManager>();
+        mapManager.roll();
     }
 }
