@@ -17,7 +17,7 @@ public class InputProvider : NetworkBehaviour, INetworkRunnerCallbacks
 
     public void OnInput(NetworkRunner runner, NetworkInput input) {
         var playerInput = new PlayerInput();
-        Log.Debug("OnInput");
+        //Log.Debug("OnInput");
         playerInput.Buttons.Set(PlayerButtons.Roll, HUDManager.instance.onClicked);
         input.Set(playerInput);
     }

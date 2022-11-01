@@ -13,19 +13,12 @@ public class Piece : NetworkBehaviour
     [Networked]
     private NetworkBool Finished { get; set; }
 
-    // private void Spawned()
-    // {
-
-    // }
-
     public void move(int steps){
         //当已经在最后的胜利通道时
         Square temp = currentSquare;
         int rsteps = steps;
         for(int i=0;i<steps;i++){
-            Log.Debug(temp);
             temp = temp.next;
-            Log.Debug(temp);
             if(currentSquare.type == SquareType.Finish && i<(steps-1))
             {
                 rsteps = i;
@@ -43,18 +36,16 @@ public class Piece : NetworkBehaviour
             {
                 currentSquare = currentSquare.next;
             }
-            squareId = currentSquare.id;
-            updatePos();   
+            squareId = currentSquare.id;  
         }
+        updatePos(); 
     }
 
     public void updatePos()
     {
-        Vector3 pos = FindObjectOfType<MapManager>().GetComponent<MapManager>().map[squareId].transform.position;
-        Log.Debug(squareId);
+        Vector3 pos = currentSquare.transform.position;
         pos.y = transform.position.y;
         transform.position = pos;
-        position = transform.position;
     }
 
     // public Square findSquare(int id)

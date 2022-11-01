@@ -17,13 +17,19 @@ public class MapManager : NetworkBehaviour
     private void findPiece()
     {
         GameObject[] pieces = GameObject.FindGameObjectsWithTag("Piece");
+        int i = 0;
         foreach(GameObject p in pieces)
         {
-            if(p.GetComponent<NetworkObject>().HasInputAuthority)
+            if(Runner.LocalPlayer == p.GetComponent<NetworkObject>().InputAuthority)
             {
+                Log.Debug("Find");
+                Log.Debug(i);
+                Log.Debug(Runner.LocalPlayer);
+                Log.Debug(p.GetComponent<NetworkObject>().InputAuthority);
                 piece = p.GetComponent<Piece>();
                 return;
             }
+            i++;
         }
     }
 
@@ -66,9 +72,7 @@ public class MapManager : NetworkBehaviour
 
     public void onRoll()
     {
-        Log.Debug(HUDManager.instance.onClicked);
         HUDManager.instance.onClicked = !HUDManager.instance.onClicked;
-        Log.Debug(HUDManager.instance.onClicked);
     }
 
     // public void rowtest()

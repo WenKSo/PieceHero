@@ -76,9 +76,9 @@ public class Player : NetworkBehaviour
         // store latest input as 'previous' state we had
         ButtonsPrevious = input.Buttons;
 
-        if (input.Buttons.IsSet(PlayerButtons.Roll)) {
+        if (pressed.IsSet(PlayerButtons.Roll)) {
             roll();
-            Log.Debug("Pressed");
+            Log.Debug("Pressed.");
         }
     }
 
