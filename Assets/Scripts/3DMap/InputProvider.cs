@@ -7,10 +7,11 @@ using System;
 
 public class InputProvider : NetworkBehaviour, INetworkRunnerCallbacks
 {
-    public void OnEnable()
+    public override void Spawned()
     {
-        if(Runner != null){
-            Runner.AddCallbacks( this );
+        if (Object.HasInputAuthority)
+        {
+            Runner.AddCallbacks(this);
         }
     }
 
