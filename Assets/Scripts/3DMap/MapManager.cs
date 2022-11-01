@@ -64,6 +64,13 @@ public class MapManager : NetworkBehaviour
         }
     }
 
+    public void onRoll()
+    {
+        Log.Debug(HUDManager.instance.onClicked);
+        HUDManager.instance.onClicked = !HUDManager.instance.onClicked;
+        Log.Debug(HUDManager.instance.onClicked);
+    }
+
     // public void rowtest()
     // {
     //     var r = new System.Random();
