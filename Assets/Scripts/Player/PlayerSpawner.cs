@@ -24,23 +24,30 @@ public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
         if (!runner.IsClient)
         {
             PlayerSpawnPos = GameObject.FindGameObjectWithTag("Respawn").transform.position;
+            int i = 0;
             foreach (var player in runner.ActivePlayers)
             {
-                SpawnPlayer(runner, player, GameManager.Instance.GetPlayerData(player, runner).Nick.ToString());
+                SpawnPlayer(runner, player, i, GameManager.Instance.GetPlayerData(player, runner).Nick.ToString());
+                i++;
+                Log.Debug(i);
             }
         }
     }
 
-    private void SpawnPlayer(NetworkRunner runner, PlayerRef player, string nick = "")
+    private void SpawnPlayer(NetworkRunner runner, int PlayerNo, PlayerRef player, string nick = "")
     {
         if (runner.IsServer)
         {
+            Log.Debug("Inside 1");
             NetworkObject playerObj = runner.Spawn(PlayerPrefab, Vector3.zero, Quaternion.identity, player, InitializeObjBeforeSpawn);
-
+            Log.Debug("Inside 2");
+            playerObj.GetComponent<Player>().playerNo = PlayerNo;
             PlayerData data = GameManager.Instance.GetPlayerData(player, runner);
+            Log.Debug("Inside 3");
             data.Instance = playerObj;
-
+            Log.Debug("Inside 4");
             playerObj.GetComponent<Player>().Nickname = data.Nick;
+            
         }
     }
 

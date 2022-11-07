@@ -9,6 +9,7 @@ public class Player : NetworkBehaviour
     public NetworkPrefabRef Piece;
 
     #region NetworkedVariables
+    [Networked] public int playerNo { get; set; }
     [Networked(OnChanged = nameof(OnNickChanged))]
     public NetworkString<_16> Nickname { get; set; }
     public int PlayerID { get; private set; }
@@ -52,11 +53,22 @@ public class Player : NetworkBehaviour
     {
         if(runner.IsServer)
         {
-            GameObject[] startSquares = GameObject.FindGameObjectsWithTag("StartYellow");
-            foreach (GameObject i in startSquares)
-            {
-                NetworkObject piece = Runner.Spawn(Piece, i.transform.position, Quaternion.identity, PlayerID, InitializeObjBeforeSpawn, predictionKey: null);
-                piece.GetComponent<Piece>().squareId = i.GetComponent<Square>().id;
+            GameObject[] startYellowSquares = GameObject.FindGameObjectsWithTag("StartYellow");
+            GameObject[] startRedSquares = GameObject.FindGameObjectsWithTag("StartRed");
+            if(playerNo == 0){
+                foreach (GameObject i in startYellowSquares)
+                {
+                    NetworkObject piece = Runner.Spawn(Piece, i.transform.position, Quaternion.identity, PlayerID, InitializeObjBeforeSpawn, predictionKey: null);
+                    piece.GetComponent<Piece>().squareId = i.GetComponent<Square>().id;
+                }
+            }
+
+            else if(playerNo == 1){
+                foreach (GameObject i in startRedSquares)
+                {
+                    NetworkObject piece = Runner.Spawn(Piece, i.transform.position, Quaternion.identity, PlayerID, InitializeObjBeforeSpawn, predictionKey: null);
+                    piece.GetComponent<Piece>().squareId = i.GetComponent<Square>().id;
+                }
             }
         }
     }
@@ -75,11 +87,13 @@ public class Player : NetworkBehaviour
 
         // store latest input as 'previous' state we had
         ButtonsPrevious = input.Buttons;
-
-        if (pressed.IsSet(PlayerButtons.Roll)) {
-            roll();
-            Log.Debug("Pressed.");
+        if(Runner.IsForward & Runner.IsFirstTick){
+            if (pressed.IsSet(PlayerButtons.Roll)) {
+                roll();
+                Log.Debug("Pressed.");
+            }
         }
+        
     }
 
     void roll(){
