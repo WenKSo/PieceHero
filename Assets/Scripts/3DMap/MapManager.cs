@@ -74,11 +74,4 @@ public class MapManager : NetworkBehaviour
     {
         HUDManager.instance.onClicked = !HUDManager.instance.onClicked;
     }
-
-    // public void rowtest()
-    // {
-    //     var r = new System.Random();
-    //     int rInt = r.Next(1, 7);
-    //     nick.GetComponent<NicknameText>().SetNick(rInt);
-    // }
 }
