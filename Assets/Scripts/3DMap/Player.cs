@@ -68,18 +68,22 @@ public class Player : NetworkBehaviour
     public override void FixedUpdateNetwork() 
     {
         if (GetInput<PlayerInput>(out var input) == false) return;
+       
+        if (Runner.IsForward && Runner.IsFirstTick)
+        {
+            // compute pressed/released state
+            var pressed = input.Buttons.GetPressed(ButtonsPrevious);
+            var released = input.Buttons.GetReleased(ButtonsPrevious);
 
-        // compute pressed/released state
-        var pressed = input.Buttons.GetPressed(ButtonsPrevious);
-        var released = input.Buttons.GetReleased(ButtonsPrevious);
+            // store latest input as 'previous' state we had
+            ButtonsPrevious = input.Buttons;
 
-        // store latest input as 'previous' state we had
-        ButtonsPrevious = input.Buttons;
-
-        if (pressed.IsSet(PlayerButtons.Roll)) {
-            roll();
-            Log.Debug("Pressed.");
-        }
+            if (pressed.IsSet(PlayerButtons.Roll))
+            {
+                roll();
+                Log.Debug("Pressed.");
+            }
+        }    
     }
 
     void roll(){
