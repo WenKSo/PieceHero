@@ -48,33 +48,60 @@ public class Player : NetworkBehaviour
         //GetComponentInChildren<NicknameText>().SetupNick(Nickname.ToString());
     }
 
-    /// <param name="runner"></param>
-    public void SpawnPieces(NetworkRunner runner)
-    {
-        if(runner.IsServer)
+     /// <param name="runner"></param>
+    public void SpawnPieces(NetworkRunner runner){
+        if (runner.IsServer)
         {
             GameObject[] startYellowSquares = GameObject.FindGameObjectsWithTag("StartYellow");
             GameObject[] startRedSquares = GameObject.FindGameObjectsWithTag("StartRed");
-            if(playerNo == 0){
+            GameObject[] startBlueSquares = GameObject.FindGameObjectsWithTag("StartBlue");
+            GameObject[] startGreenSquares = GameObject.FindGameObjectsWithTag("StartGreen");
+            if (playerNo == 0)
+            {
                 foreach (GameObject i in startYellowSquares)
                 {
-                    NetworkObject piece = Runner.Spawn(Piece, i.transform.position, Quaternion.identity, PlayerID, InitializeObjBeforeSpawn, predictionKey: null);
-                    piece.GetComponent<Piece>().squareId = i.GetComponent<Square>().id;
+                    PieceSpawnFunction(i);
                 }
             }
-
-            else if(playerNo == 1){
+            else if (playerNo == 1)
+            {
                 foreach (GameObject i in startRedSquares)
                 {
-                    NetworkObject piece = Runner.Spawn(Piece, i.transform.position, Quaternion.identity, PlayerID, InitializeObjBeforeSpawn, predictionKey: null);
-                    piece.GetComponent<Piece>().squareId = i.GetComponent<Square>().id;
+                    PieceSpawnFunction(i);
+                }
+            }
+            else if (playerNo == 2)
+            {
+                foreach (GameObject i in startBlueSquares)
+                {
+                    PieceSpawnFunction(i);
+                }
+            }
+            else if (playerNo == 3)
+            {
+                foreach (GameObject i in startGreenSquares)
+                {
+                    PieceSpawnFunction(i);
                 }
             }
         }
     }
 
-    private void InitializeObjBeforeSpawn(NetworkRunner runner, NetworkObject obj)
+    private void PieceSpawnFunction(GameObject startSquare)
     {
+        Runner.Spawn(
+            Piece,
+            startSquare.transform.position, 
+            Quaternion.identity, 
+            PlayerID,
+            (Runner, NO) => PieceOnBeforeSpawn(Runner, NO, startSquare.GetComponent<Square>()),
+            predictionKey: null
+            );
+    }
+
+    private void PieceOnBeforeSpawn(NetworkRunner runner, NetworkObject justSpawnedNO, Square startSquare)
+    {
+        justSpawnedNO.GetComponent<Piece>().squareId = startSquare.id;
     }
 
     public override void FixedUpdateNetwork() 
@@ -92,19 +119,10 @@ public class Player : NetworkBehaviour
 
             if (pressed.IsSet(PlayerButtons.Roll))
             {
-                roll();
                 Log.Debug("Pressed.");
+                roll();
             }
         }    
-
-        // store latest input as 'previous' state we had
-        ButtonsPrevious = input.Buttons;
-        if(Runner.IsForward & Runner.IsFirstTick){
-            if (pressed.IsSet(PlayerButtons.Roll)) {
-                roll();
-                Log.Debug("Pressed.");
-            }
-        }
     }
 
     void roll(){

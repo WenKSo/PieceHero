@@ -7,28 +7,35 @@ using Fusion;
 public class Piece : NetworkBehaviour
 {
     [Networked] public int squareId { get; set; }
-    [Networked] private Vector3 position { get; set; }
     public Square currentSquare;
     public ColorType color;
     [Networked]
     private NetworkBool Finished { get; set; }
 
-    public void move(int steps){
+    void Spawned()
+    {
+        Debug.Log(squareId);
+        updatePos();
+    }
+
+    public void move(int steps)
+    {
         //当已经在最后的胜利通道时
         Square temp = currentSquare;
         int rsteps = steps;
-        for(int i=0;i<steps;i++){
+        for (int i = 0; i < steps; i++)
+        {
             temp = temp.next;
-            if(currentSquare.type == SquareType.Finish && i<(steps-1))
+            if (currentSquare.type == SquareType.Finish && i < (steps - 1))
             {
                 rsteps = i;
                 break;
             }
         }
 
-        for(int i=0;i<rsteps;i++)
+        for (int i = 0; i < rsteps; i++)
         {
-            if(currentSquare.type == SquareType.Special)
+            if (currentSquare.type == SquareType.Special)
             {
                 currentSquare = currentSquare.next2;
             }
@@ -36,9 +43,9 @@ public class Piece : NetworkBehaviour
             {
                 currentSquare = currentSquare.next;
             }
-            squareId = currentSquare.id;  
+            squareId = currentSquare.id;
         }
-        updatePos(); 
+        updatePos();
     }
 
     public void updatePos()
@@ -55,10 +62,12 @@ public class Piece : NetworkBehaviour
 
     public override void FixedUpdateNetwork()
     {
+        /**
         if(Runner.IsServer)
         {
             position = transform.position;
         }
         transform.position = position;
-    } 
+    } **/
+    }
 }

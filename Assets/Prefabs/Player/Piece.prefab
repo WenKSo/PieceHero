@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2060989038441915271}
   - component: {fileID: 2060989038441915268}
   - component: {fileID: 2060989038441915269}
+  - component: {fileID: 8484175862645306771}
   m_Layer: 0
   m_Name: Piece
   m_TagString: Piece
@@ -47,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
+  _squareId: 0
   currentSquare: {fileID: 0}
   color: 1
 --- !u!114 &2060989038441915269
@@ -73,6 +75,20 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 2060989038441915268}
   SimulationBehaviours: []
+--- !u!136 &8484175862645306771
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060989038441915266}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2060989038814082928
 GameObject:
   m_ObjectHideFlags: 0
@@ -85,7 +101,7 @@ GameObject:
   - component: {fileID: 2060989038814082932}
   - component: {fileID: 2060989038814082933}
   - component: {fileID: 2060989038814082930}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}

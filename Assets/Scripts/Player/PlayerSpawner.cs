@@ -9,10 +9,12 @@ public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
 {
     public NetworkPrefabRef PlayerPrefab;
     public static Vector3 PlayerSpawnPos;
+    private int counter;
 
     private void Awake()
     {
         PlayerSpawnPos = GameObject.FindGameObjectWithTag("Respawn").transform.position;
+        counter = 0;
     }
 
     /// <summary>
@@ -24,30 +26,23 @@ public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
         if (!runner.IsClient)
         {
             PlayerSpawnPos = GameObject.FindGameObjectWithTag("Respawn").transform.position;
-            int i = 0;
             foreach (var player in runner.ActivePlayers)
             {
-                SpawnPlayer(runner, player, i, GameManager.Instance.GetPlayerData(player, runner).Nick.ToString());
-                i++;
-                Log.Debug(i);
+                SpawnPlayer(runner, player, counter, GameManager.Instance.GetPlayerData(player, runner).Nick.ToString());
+                counter++;
             }
         }
     }
 
-    private void SpawnPlayer(NetworkRunner runner, int PlayerNo, PlayerRef player, string nick = "")
+    private void SpawnPlayer(NetworkRunner runner, PlayerRef player, int PlayerNo, string nick = "")
     {
         if (runner.IsServer)
         {
-            Log.Debug("Inside 1");
             NetworkObject playerObj = runner.Spawn(PlayerPrefab, Vector3.zero, Quaternion.identity, player, InitializeObjBeforeSpawn);
-            Log.Debug("Inside 2");
             playerObj.GetComponent<Player>().playerNo = PlayerNo;
             PlayerData data = GameManager.Instance.GetPlayerData(player, runner);
-            Log.Debug("Inside 3");
             data.Instance = playerObj;
-            Log.Debug("Inside 4");
-            playerObj.GetComponent<Player>().Nickname = data.Nick;
-            
+            playerObj.GetComponent<Player>().Nickname = data.Nick; 
         }
     }
 
@@ -60,6 +55,7 @@ public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
     private void InitializeObjBeforeSpawn(NetworkRunner runner, NetworkObject obj)
     {
         var behaviour = obj.GetComponent<Player>();
+        behaviour.playerNo = counter;
     }
 
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)

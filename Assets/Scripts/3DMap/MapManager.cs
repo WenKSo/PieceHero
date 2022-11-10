@@ -2,43 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
+using TMPro;
 
 public class MapManager : NetworkBehaviour
 {
     public Piece piece;
     public NetworkObject nick;
     public Square[] map;
+    public TMP_Text RollNumText;
 
     void Start()
     {
         assignId();
     }
 
-    private void findPiece()
-    {
-        GameObject[] pieces = GameObject.FindGameObjectsWithTag("Piece");
-        int i = 0;
-        foreach(GameObject p in pieces)
-        {
-            if(Runner.LocalPlayer == p.GetComponent<NetworkObject>().InputAuthority)
-            {
-                Log.Debug("Find");
-                Log.Debug(i);
-                Log.Debug(Runner.LocalPlayer);
-                Log.Debug(p.GetComponent<NetworkObject>().InputAuthority);
-                piece = p.GetComponent<Piece>();
-                return;
-            }
-            i++;
-        }
-    }
-
     public void roll()
     {   
-        findPiece(); 
         var r = new System.Random();
         int rInt = r.Next(1, 7);
-        Debug.Log(rInt);
+        Log.Debug(rInt);
+        RollNumText.text = rInt.ToString();
         piece.currentSquare = map[piece.squareId];
         piece.move(rInt);
         switch(piece.currentSquare.type) 
