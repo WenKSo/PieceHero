@@ -4,7 +4,7 @@ using UnityEngine;
 using Fusion;
 using TMPro;
 
-public class MapManager : NetworkBehaviour
+public class MapManager : MonoBehaviour
 {
     public Piece piece;
     public NetworkObject nick;
@@ -22,7 +22,6 @@ public class MapManager : NetworkBehaviour
         int rInt = r.Next(1, 7);
         Log.Debug(rInt);
         RollNumText.text = rInt.ToString();
-        piece.currentSquare = map[piece.squareId];
         piece.move(rInt);
         switch(piece.currentSquare.type) 
         {

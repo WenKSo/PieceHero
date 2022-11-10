@@ -6,21 +6,23 @@ using Fusion;
 
 public class Piece : NetworkBehaviour
 {
-    [Networked] public int squareId { get; set; }
+    [Networked(OnChanged = "OnSquareIDChanged")] public int squareId { get; set; }
     public Square currentSquare;
     public ColorType color;
     [Networked]
     private NetworkBool Finished { get; set; }
 
-    void Spawned()
+    public override void Spawned()
     {
         Debug.Log(squareId);
+        MapManager mapManager = FindObjectOfType<MapManager>();
+        currentSquare = mapManager.map[squareId];
         updatePos();
     }
 
     public void move(int steps)
     {
-        //当已经在最后的胜利通道时
+        //when it is on the road to win
         Square temp = currentSquare;
         int rsteps = steps;
         for (int i = 0; i < steps; i++)
@@ -45,20 +47,25 @@ public class Piece : NetworkBehaviour
             }
             squareId = currentSquare.id;
         }
-        updatePos();
     }
 
     public void updatePos()
     {
         Vector3 pos = currentSquare.transform.position;
-        pos.y = transform.position.y;
         transform.position = pos;
     }
 
-    // public Square findSquare(int id)
-    // {
-    //     return map[id];
-    // }
+    public static void OnSquareIDChanged(Changed<Piece> changed)
+    {
+        changed.Behaviour.OnSquareIDChanged();
+    }
+
+    private void OnSquareIDChanged()
+    {
+        MapManager mapManager = FindObjectOfType<MapManager>();
+        currentSquare = mapManager.map[squareId];
+        updatePos();
+    }
 
     public override void FixedUpdateNetwork()
     {

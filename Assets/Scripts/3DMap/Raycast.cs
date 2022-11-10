@@ -24,7 +24,7 @@ public class Raycast : MonoBehaviour
             {
                 Debug.Log(hit.transform.root.name);
                 MapManager mapManager = FindObjectOfType<MapManager>();
-                Debug.Log(hit.collider.transform.GetComponent<Piece>());
+                Debug.Log(hit.transform.root.GetComponent<Piece>().currentSquare);
                 mapManager.piece = hit.transform.root.GetComponent<Piece>();
             }
         }
