@@ -67,14 +67,13 @@ public class Piece : NetworkBehaviour
         updatePos();
     }
 
+    public bool ifHasInputAuthority()
+    {
+        return (Runner.LocalPlayer == Object.InputAuthority);
+    }
+
     public override void FixedUpdateNetwork()
     {
-        /**
-        if(Runner.IsServer)
-        {
-            position = transform.position;
-        }
-        transform.position = position;
-    } **/
+
     }
 }

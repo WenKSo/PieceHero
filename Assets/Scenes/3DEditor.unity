@@ -3696,7 +3696,7 @@ GameObject:
   - component: {fileID: 598334959}
   - component: {fileID: 598334960}
   - component: {fileID: 598334962}
-  - component: {fileID: 598334961}
+  - component: {fileID: 598334963}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3731,12 +3731,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b228af965a22ae64baae975c77bbd882, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interpolationDataSource: 0
   piece: {fileID: 0}
   nick: {fileID: 390271685}
   map: []
   RollNumText: {fileID: 269321466}
---- !u!114 &598334961
+--- !u!114 &598334962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598334956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 230d7b7780b29324a805a73781762550, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+--- !u!114 &598334963
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3755,25 +3767,11 @@ MonoBehaviour:
   AoiPositionSource: {fileID: 0}
   Flags: 2561
   NetworkGuid:
-    RawGuidValue: 219d4583ca364902ad99ce5267a13556
+    RawGuidValue: da5c92ecb5714f608a04b2f3880ac47a
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 598334960}
   - {fileID: 598334962}
   SimulationBehaviours: []
---- !u!114 &598334962
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 598334956}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 230d7b7780b29324a805a73781762550, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interpolationDataSource: 0
 --- !u!1 &600202515 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1811686274572396, guid: af1ac26269830d347859c2c45ef72494, type: 3}
@@ -9470,7 +9468,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Row
+  m_text: Roll
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

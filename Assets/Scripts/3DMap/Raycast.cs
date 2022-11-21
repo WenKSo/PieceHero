@@ -24,8 +24,10 @@ public class Raycast : MonoBehaviour
             {
                 Debug.Log(hit.transform.root.name);
                 MapManager mapManager = FindObjectOfType<MapManager>();
-                Debug.Log(hit.transform.root.GetComponent<Piece>().currentSquare);
-                mapManager.piece = hit.transform.root.GetComponent<Piece>();
+                if (hit.transform.root.GetComponent<Piece>().ifHasInputAuthority()) {
+                    Debug.Log("Hey");
+                    mapManager.piece = hit.transform.root.GetComponent<Piece>();
+                } 
             }
         }
     }
