@@ -55,5 +55,6 @@ public class MapManager : MonoBehaviour
     public void onRoll()
     {
         HUDManager.instance.onClicked = !HUDManager.instance.onClicked;
+        Debug.Log(HUDManager.instance.onClicked);
     }
 }

@@ -45,8 +45,8 @@ public class Piece : NetworkBehaviour
             {
                 currentSquare = currentSquare.next;
             }
-            squareId = currentSquare.id;
         }
+        squareId = currentSquare.id;
     }
 
     public void updatePos()
