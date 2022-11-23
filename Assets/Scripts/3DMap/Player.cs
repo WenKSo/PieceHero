@@ -117,12 +117,16 @@ public class Player : NetworkBehaviour
         if (pressed.IsSet(PlayerButtons.Roll))
         {
             Log.Debug("Pressed.");
-            roll();
+            MapManager mapManager = FindObjectOfType<MapManager>();
+            mapManager.piece.SetSquareId(10);
         } 
     }
 
-    void roll(){
+
+
+    public void roll(){
         MapManager mapManager = FindObjectOfType<MapManager>();
-        mapManager.roll();
+        //mapManager.roll();
+        mapManager.piece.squareId = 0;
     }
 }

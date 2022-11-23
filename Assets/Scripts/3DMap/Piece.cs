@@ -76,4 +76,10 @@ public class Piece : NetworkBehaviour
     {
 
     }
+
+    public void SetSquareId(int id)
+    {
+        squareId = id;
+        Log.Debug(id);
+    }
 }
