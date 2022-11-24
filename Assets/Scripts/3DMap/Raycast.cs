@@ -29,6 +29,7 @@ public class Raycast : MonoBehaviour
                 if (hit.transform.root.GetComponent<Piece>().ifHasInputAuthority()) {
                     Debug.Log("Hey");
                     player.selectedPieceID = hit.transform.root.GetComponent<Piece>().id;
+                    HUDManager.instance.pieceID = player.selectedPieceID;
                 } 
             }
         }

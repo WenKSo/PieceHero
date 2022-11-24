@@ -9,11 +9,12 @@ public class MapManager : MonoBehaviour
     public Piece piece;
     public NetworkObject nick;
     public Square[] map;
+    public Piece[] pieces;
     public TMP_Text RollNumText;
 
     void Start()
     {
-        assignId();
+        assignSquareId();
     }
 
     public void roll()
@@ -41,7 +42,7 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    public void assignId()
+    public void assignSquareId()
     {
         map = FindObjectsOfType<Square>();
         int count = 0;
@@ -56,6 +57,22 @@ public class MapManager : MonoBehaviour
     {
         HUDManager.instance.onClicked = !HUDManager.instance.onClicked;
         Debug.Log(HUDManager.instance.onClicked);
+    }
+
+    public void assignPieceId()
+    {
+        pieces = FindObjectsOfType<Piece>();
+        int count = 0;
+        foreach (Piece i in pieces)
+        {
+            i.id = count;
+            count++;
+        }
+    }
+
+    void Update()
+    {
+        assignPieceId();
     }
 }
 

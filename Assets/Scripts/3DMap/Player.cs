@@ -9,6 +9,7 @@ public class Player : NetworkBehaviour
     public NetworkPrefabRef Piece;
     public Piece piece;
     public int selectedPieceID;
+    private MapManager mapManager;
 
     #region NetworkedVariables
     [Networked] public int playerNo { get; set; }
@@ -19,6 +20,11 @@ public class Player : NetworkBehaviour
     private NetworkBool Finished { get; set; }
     [Networked] public NetworkButtons ButtonsPrevious { get; set; }
     #endregion
+
+    void Awake()
+    {
+        mapManager = FindObjectOfType<MapManager>();
+    }
 
     public override void Spawned()
     {
@@ -63,50 +69,59 @@ public class Player : NetworkBehaviour
             GameObject[] startGreenSquares = GameObject.FindGameObjectsWithTag("StartGreen");
             if (playerNo == 0)
             {
+                int pid = 0;
                 foreach (GameObject i in startYellowSquares)
                 {
-                    PieceSpawnFunction(i);
+                    PieceSpawnFunction(i,pid);
+                    pid++;
                 }
             }
             else if (playerNo == 1)
             {
+                int pid = 0;
                 foreach (GameObject i in startRedSquares)
                 {
-                    PieceSpawnFunction(i);
+                    PieceSpawnFunction(i,pid);
+                    pid++;
                 }
             }
             else if (playerNo == 2)
             {
+                int pid = 0;
                 foreach (GameObject i in startBlueSquares)
                 {
-                    PieceSpawnFunction(i);
+                    PieceSpawnFunction(i,pid);
+                    pid++;
                 }
             }
             else if (playerNo == 3)
             {
+                int pid = 0;
                 foreach (GameObject i in startGreenSquares)
                 {
-                    PieceSpawnFunction(i);
+                    PieceSpawnFunction(i,pid);
+                    pid++;
                 }
             }
         }
     }
 
-    private void PieceSpawnFunction(GameObject startSquare)
+    private void PieceSpawnFunction(GameObject startSquare, int PieceID)
     {
         Runner.Spawn(
             Piece,
             startSquare.transform.position, 
             Quaternion.identity, 
             PlayerID,
-            (Runner, NO) => PieceOnBeforeSpawn(Runner, NO, startSquare.GetComponent<Square>()),
+            (Runner, NO) => PieceOnBeforeSpawn(Runner, NO, startSquare.GetComponent<Square>(),PieceID),
             predictionKey: null
             );
     }
 
-    private void PieceOnBeforeSpawn(NetworkRunner runner, NetworkObject justSpawnedNO, Square startSquare)
+    private void PieceOnBeforeSpawn(NetworkRunner runner, NetworkObject justSpawnedNO, Square startSquare, int PieceID)
     {
         justSpawnedNO.GetComponent<Piece>().squareId = startSquare.id;
+        justSpawnedNO.GetComponent<Piece>().id = PieceID;
     }
 
     public override void FixedUpdateNetwork() 
@@ -121,18 +136,32 @@ public class Player : NetworkBehaviour
         if (pressed.IsSet(PlayerButtons.Roll))
         {
             Log.Debug("Pressed.");
+            selectedPieceID = input.ChosenPiece;
             //MapManager mapManager = FindObjectOfType<MapManager>();
-            piece.SetSquareId(10);
+            Piece p = findPiece(input.ChosenPiece);
+            Log.Debug(input.ChosenPiece);
+            p.squareId = 0;
         }
-
-       // if (input.ChosenPiece == )
     }
 
 
 
-    public void roll(){
-        MapManager mapManager = FindObjectOfType<MapManager>();
+    public void roll(){ 
+        //MapManager mapManager = FindObjectOfType<MapManager>();
         //mapManager.roll();
         mapManager.piece.squareId = 0;
+    }
+
+    private Piece findPiece(int pid)
+    {
+        Piece[] pieces = FindObjectsOfType<Piece>();
+        for(int i = 0;i<pieces.Length;i++)
+        {
+            if(pieces[i].ifHasInputAuthority() && pieces[i].id == pid)
+            {
+                return pieces[i];
+            }
+        }
+        return null;
     }
 }
