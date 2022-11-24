@@ -133,6 +133,7 @@ public class Player : NetworkBehaviour
 
         // store latest input as 'previous' state we had
         ButtonsPrevious = input.Buttons;
+
         if (pressed.IsSet(PlayerButtons.Roll))
         {
             Log.Debug("Pressed.");
@@ -143,8 +144,6 @@ public class Player : NetworkBehaviour
             p.squareId = 0;
         }
     }
-
-
 
     public void roll(){ 
         //MapManager mapManager = FindObjectOfType<MapManager>();
@@ -157,7 +156,7 @@ public class Player : NetworkBehaviour
         Piece[] pieces = FindObjectsOfType<Piece>();
         for(int i = 0;i<pieces.Length;i++)
         {
-            if(pieces[i].ifHasInputAuthority() && pieces[i].id == pid)
+            if(pieces[i].id == pid)
             {
                 return pieces[i];
             }
