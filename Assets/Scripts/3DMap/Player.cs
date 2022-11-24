@@ -7,6 +7,8 @@ using Fusion;
 public class Player : NetworkBehaviour
 {
     public NetworkPrefabRef Piece;
+    public Piece piece;
+    public int selectedPieceID;
 
     #region NetworkedVariables
     [Networked] public int playerNo { get; set; }
@@ -30,6 +32,9 @@ public class Player : NetworkBehaviour
         }
         GameObject.FindGameObjectWithTag("Nick").GetComponentInChildren<NicknameText>().SetupNick(Nickname.ToString());
         SpawnPieces(Runner);
+        Raycast rc = FindObjectOfType<Raycast>();
+        Debug.Log(rc);
+        if (Runner.LocalPlayer == PlayerID) rc.player = this;
     }
 
     [Rpc(sources: RpcSources.InputAuthority, targets: RpcTargets.StateAuthority)]
@@ -113,13 +118,14 @@ public class Player : NetworkBehaviour
 
         // store latest input as 'previous' state we had
         ButtonsPrevious = input.Buttons;
-
         if (pressed.IsSet(PlayerButtons.Roll))
         {
             Log.Debug("Pressed.");
-            MapManager mapManager = FindObjectOfType<MapManager>();
-            mapManager.piece.SetSquareId(10);
-        } 
+            //MapManager mapManager = FindObjectOfType<MapManager>();
+            piece.SetSquareId(10);
+        }
+
+       // if (input.ChosenPiece == )
     }
 
 

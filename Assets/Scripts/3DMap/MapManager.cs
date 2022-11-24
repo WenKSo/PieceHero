@@ -58,3 +58,4 @@ public class MapManager : MonoBehaviour
         Debug.Log(HUDManager.instance.onClicked);
     }
 }
+

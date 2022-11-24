@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class HUDManager : MonoBehaviour
 {
     public static HUDManager instance { get; private set; }
+    public int pieceID;
     public Button roll;
     public bool onClicked;
 

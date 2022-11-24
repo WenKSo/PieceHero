@@ -6,6 +6,7 @@ public class Raycast : MonoBehaviour
 {
     public Camera cam;
     public LayerMask mask;
+    public Player player;
 
     void Update()
     {
@@ -22,11 +23,12 @@ public class Raycast : MonoBehaviour
 
             if (Physics.Raycast(ray,out hit,100,mask))
             {
-                Debug.Log(hit.transform.root.name);
-                MapManager mapManager = FindObjectOfType<MapManager>();
+                Debug.Log(hit.transform.root.name); 
+                //MapManager mapManager = FindObjectOfType<MapManager>();
+
                 if (hit.transform.root.GetComponent<Piece>().ifHasInputAuthority()) {
                     Debug.Log("Hey");
-                    mapManager.piece = hit.transform.root.GetComponent<Piece>();
+                    player.selectedPieceID = hit.transform.root.GetComponent<Piece>().id;
                 } 
             }
         }

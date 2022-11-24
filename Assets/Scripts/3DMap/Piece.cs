@@ -11,6 +11,7 @@ public class Piece : NetworkBehaviour
     public ColorType color;
     [Networked]
     private NetworkBool Finished { get; set; }
+    public int id;
 
     public override void Spawned()
     {

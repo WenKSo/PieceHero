@@ -6,5 +6,5 @@ enum PlayerButtons {
 
 public struct PlayerInput : INetworkInput {
     public NetworkButtons Buttons;
-    public int rollNum;
+    public int ChosenPiece;
 }
