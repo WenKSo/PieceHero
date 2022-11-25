@@ -137,12 +137,13 @@ public class Player : NetworkBehaviour
         if (pressed.IsSet(PlayerButtons.Roll))
         {
             Log.Debug("Pressed.");
-            selectedPieceID = input.ChosenPiece;
-            //MapManager mapManager = FindObjectOfType<MapManager>();
             Piece p = findPiece(input.ChosenPiece);
             Log.Debug(input.ChosenPiece);
             p.squareId = 0;
         }
+
+        if (Object.HasInputAuthority)
+            HUDManager.instance.onClicked = false;
     }
 
     public void roll(){ 

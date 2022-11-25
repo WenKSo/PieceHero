@@ -49,6 +49,9 @@ MonoBehaviour:
   _interpolationDataSource: 1
   Piece:
     RawGuidValue: 1b7169af0bd5d134b842347ebae9d0f9
+  piece: {fileID: 0}
+  selectedPieceID: 0
+  _playerNo: 0
   _Nickname:
     _length: 0
     _data:
