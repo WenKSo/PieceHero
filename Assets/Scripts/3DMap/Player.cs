@@ -140,10 +140,9 @@ public class Player : NetworkBehaviour
             Piece p = findPiece(input.ChosenPiece);
             Log.Debug(input.ChosenPiece);
             p.squareId = 0;
+            if (Object.HasInputAuthority)
+                HUDManager.instance.onClicked = false;
         }
-
-        if (Object.HasInputAuthority)
-            HUDManager.instance.onClicked = false;
     }
 
     public void roll(){ 
