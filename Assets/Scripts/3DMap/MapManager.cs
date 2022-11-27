@@ -1,4 +1,4 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
@@ -6,7 +6,6 @@ using TMPro;
 
 public class MapManager : MonoBehaviour
 {
-    public Piece piece;
     public NetworkObject nick;
     public Square[] map;
     public Piece[] pieces;
@@ -17,7 +16,7 @@ public class MapManager : MonoBehaviour
         assignSquareId();
     }
 
-    public void roll()
+    public void roll(Piece piece)
     {   
         var r = new System.Random();
         int rInt = r.Next(1, 7);

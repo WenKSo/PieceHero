@@ -138,17 +138,10 @@ public class Player : NetworkBehaviour
         {
             Log.Debug("Pressed.");
             Piece p = findPiece(input.ChosenPiece);
-            Log.Debug(input.ChosenPiece);
-            p.squareId = 0;
+            mapManager.roll(p);
             if (Object.HasInputAuthority)
                 HUDManager.instance.onClicked = false;
         }
-    }
-
-    public void roll(){ 
-        //MapManager mapManager = FindObjectOfType<MapManager>();
-        //mapManager.roll();
-        mapManager.piece.squareId = 0;
     }
 
     private Piece findPiece(int pid)
