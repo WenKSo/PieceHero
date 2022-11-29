@@ -108,30 +108,4 @@ public class EditorManager : MonoBehaviour
         map.SaveToString();
     }
 
-    void Update()
-   {
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3( Input.mousePosition.x, Input.mousePosition.y, 10.0f));
-        if(select)
-        {
-            selectedObject.transform.position = mousePosition;
-            Collider2D targetObject = Physics2D.OverlapPoint(mousePosition);
-            
-            if(targetObject && targetObject.GetComponent<Block>().type == BlockType.Blank)
-            {
-                Block target = targetObject.GetComponent<Block>();
-                if(Input.GetMouseButtonDown(0))
-                {
-                    target.ChangeSprite(currentType);
-                    select = false;
-                    Destroy(selectedObject);
-                }
-            }
-        }
-
-        if(Input.GetMouseButtonDown(1))
-        {
-            select = false;
-            Destroy(selectedObject); 
-        }
-   }
 }
