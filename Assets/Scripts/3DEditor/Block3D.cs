@@ -10,6 +10,7 @@ public class Block3D : MonoBehaviour
 
     void OnMouseDown()
     {
+        if(MapEditor3D.instance.currentMode != Mode.Move) return;
         mZCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
 
         //Store offset = gameObject world pos - mouse world pos
@@ -29,6 +30,7 @@ public class Block3D : MonoBehaviour
 
     void OnMouseDrag()
     {
+        if(MapEditor3D.instance.currentMode != Mode.Move) return;
         transform.position = GetMouseWorldPos() + mOffset;
     }
 

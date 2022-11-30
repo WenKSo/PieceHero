@@ -2,12 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Mode
+{
+    Move,
+    Connect
+}
+
 public class MapEditor3D : MonoBehaviour
 {
+    public static MapEditor3D instance { get; private set; }
     public GameObject plain;
 
     // Select block Lock
     private bool select;
+    public Mode currentMode = Mode.Move;
     public GameObject selectedObject;
 
     public void onClickBlock(int type)
@@ -18,7 +26,7 @@ public class MapEditor3D : MonoBehaviour
             switch(type) 
             {
                 case 0:
-                    selectedObject = Instantiate(plain, mousePosition, Quaternion.identity);
+                    selectedObject = Instantiate(plain, mousePosition+(new Vector3(0,1,0)), Quaternion.identity);
                     break;
                 // case 3:
                 //     select = true;
@@ -54,6 +62,16 @@ public class MapEditor3D : MonoBehaviour
                     break;
             }
         }
+    }
+
+    public void setCurrentModeMove()
+    {
+        currentMode = Mode.Move;
+    }
+
+    public void setCurrentModeConnect()
+    {
+        currentMode = Mode.Connect;
     }
 
 }
