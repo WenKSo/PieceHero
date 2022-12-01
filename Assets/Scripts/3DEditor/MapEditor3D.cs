@@ -10,7 +10,23 @@ public enum Mode
 
 public class MapEditor3D : MonoBehaviour
 {
-    public static MapEditor3D instance { get; private set; }
+    #region Singleton
+     public static MapEditor3D Instance
+     {
+         get
+         {
+             if (instance == null)
+                 instance = FindObjectOfType(typeof(MapEditor3D)) as MapEditor3D;
+ 
+             return instance;
+         }
+         set
+         {
+             instance = value;
+         }
+     }
+     private static MapEditor3D instance;
+     #endregion
     public GameObject plain;
 
     // Select block Lock
