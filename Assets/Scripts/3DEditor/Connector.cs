@@ -23,17 +23,19 @@ public class Connector : MonoBehaviour
     void Update()
     {
         if(mapEditor.currentMode != Mode.Connect) return;
+        
 
         if(!startBlock) return;
-        if(Input.GetMouseButtonDown(0))
-        {
-            startMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        }
+        // if(Input.GetMouseButtonDown(0))
+        // {
+        //     startMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        // }
 
         if(Input.GetMouseButton(0))
         {
             mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            lineRend.SetPosition(0, startMousePos);
+            mousePos.y = startBlock.transform.position.y;
+            lineRend.SetPosition(0, startBlock.transform.position);
             lineRend.SetPosition(1, mousePos);
         }
     }
