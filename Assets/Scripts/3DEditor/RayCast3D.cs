@@ -35,5 +35,16 @@ public class RayCast3D : MonoBehaviour
                 connector.startBlock = hit.transform.GetComponent<Block3D>();
             }
         }
+
+        if (Input.GetMouseButton(0))
+        {
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, 100, mask))
+            {
+                connector.endBlock = hit.transform.GetComponent<Block3D>();
+            }
+        }
     }
 }
