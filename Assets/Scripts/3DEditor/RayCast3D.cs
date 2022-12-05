@@ -43,6 +43,7 @@ public class RayCast3D : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, 100, mask))
             {
+                //if(connector.startBlock == hit.transform.GetComponent<Block3D>()) return;
                 connector.endBlock = hit.transform.GetComponent<Block3D>();
             }
         }

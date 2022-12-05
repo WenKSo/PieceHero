@@ -27,12 +27,24 @@ public class MapEditor3D : MonoBehaviour
      }
      private static MapEditor3D instance;
      #endregion
+
+    //Block Prefabs
     public GameObject plain;
+    public GameObject start;
+    public GameObject end;
+    public GameObject teleport;
+
+    private Connector connector;
 
     // Select block Lock
     private bool select;
     public Mode currentMode = Mode.Move;
     public GameObject selectedObject;
+
+    void Start()
+    {
+        connector = FindObjectOfType<Connector>();
+    }
 
     public void onClickBlock(int type)
     {
@@ -44,36 +56,12 @@ public class MapEditor3D : MonoBehaviour
                 case 0:
                     selectedObject = Instantiate(plain, mousePosition+(new Vector3(0,1,0)), Quaternion.identity);
                     break;
-                // case 3:
-                //     select = true;
-                //     currentType = type;
-                //     selectedObject = Instantiate(start, mousePosition, Quaternion.identity);
-                //     break;
-                // case 4:
-                //     select = true;
-                //     currentType = type;
-                //     selectedObject = Instantiate(finish, mousePosition, Quaternion.identity);
-                //     break;
-                // case 5:
-                //     select = true;
-                //     currentType = type;
-                //     selectedObject = Instantiate(shop, mousePosition, Quaternion.identity);
-                //     break;
-                // case 6:
-                //     select = true;
-                //     currentType = type;
-                //     selectedObject = Instantiate(luck, mousePosition, Quaternion.identity);
-                //     break;
-                // case 7:
-                //     select = true;
-                //     currentType = type;
-                //     selectedObject = Instantiate(chance, mousePosition, Quaternion.identity);
-                //     break;
-                // case 8:
-                //     select = true;
-                //     currentType = type;
-                //     selectedObject = Instantiate(teleport, mousePosition, Quaternion.identity);
-                //     break;
+                case 1:
+                    selectedObject = Instantiate(start, mousePosition+(new Vector3(0,1,0)), Quaternion.identity);
+                    break;
+                case 2:
+                    selectedObject = Instantiate(end, mousePosition+(new Vector3(0,1,0)), Quaternion.identity);
+                    break;
                 default:
                     break;
             }
@@ -83,11 +71,14 @@ public class MapEditor3D : MonoBehaviour
     public void setCurrentModeMove()
     {
         currentMode = Mode.Move;
+        connector.lineRend.positionCount = 0;
+
     }
 
     public void setCurrentModeConnect()
     {
         currentMode = Mode.Connect;
+        connector.lineRend.positionCount = 2;
     }
 
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Block3D : MonoBehaviour
 {
     public Block3D next;
+    private BlockType type;
     private Vector3 mOffset;
     private float mZCoord;
 

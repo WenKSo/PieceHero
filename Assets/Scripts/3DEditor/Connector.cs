@@ -14,12 +14,13 @@ public class Connector : MonoBehaviour
     private Plane m_Plane;
     private Vector3 m_DistanceFromCamera;
 
-    private LineRenderer lineRend;
+    public LineRenderer lineRend;
     private MapEditor3D mapEditor;
 
     void Start()
     {
         mapEditor = FindObjectOfType<MapEditor3D>();
+        
         lineRend = GetComponent<LineRenderer>();
         lineRend.positionCount = 2;
 
@@ -34,7 +35,6 @@ public class Connector : MonoBehaviour
     {
         if(mapEditor.currentMode != Mode.Connect) return;
         
-
         if(!startBlock) return;
         // if(Input.GetMouseButtonDown(0))
         // {
@@ -47,6 +47,13 @@ public class Connector : MonoBehaviour
             mousePos.y = startBlock.transform.position.y;
             lineRend.SetPosition(0, startBlock.transform.position);
             lineRend.SetPosition(1, endBlock.transform.position);
+        }
+
+        if(Input.GetMouseButtonUp(0))
+        {
+            startBlock.next = endBlock;
+            startBlock = null;
+            endBlock = null;
         }
     }
 }
