@@ -11,7 +11,6 @@ public class Block3D : MonoBehaviour
 
     void OnMouseDown()
     {
-        Debug.Log(MapEditor3D.Instance==null);
         if(MapEditor3D.Instance.currentMode != Mode.Move) return;
         mZCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
 
