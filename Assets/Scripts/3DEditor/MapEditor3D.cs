@@ -68,6 +68,7 @@ public class MapEditor3D : MonoBehaviour
         }
     }
 
+    //------ For Mode Selection------
     public void setCurrentModeMove()
     {
         currentMode = Mode.Move;
@@ -79,6 +80,12 @@ public class MapEditor3D : MonoBehaviour
     {
         currentMode = Mode.Connect;
         connector.lineRend.positionCount = 2;
+    }
+    //------ For Mode Selection------
+
+    public void Save()
+    {
+
     }
 
 }
