@@ -52,6 +52,7 @@ public class Connector : MonoBehaviour
         if(Input.GetMouseButtonUp(0))
         {
             startBlock.next = endBlock;
+            startBlock.next.id = endBlock.id;
             startBlock = null;
             endBlock = null;
         }

@@ -17,6 +17,14 @@ public class JsonHelper
         return UnityEngine.JsonUtility.ToJson(wrapper);
     }
 
+    public static string ToJson<T>(T[] array, bool prettyPrint)
+    {
+        Wrapper<T> wrapper = new Wrapper<T>();
+        wrapper.Items = array;
+        return JsonUtility.ToJson(wrapper, prettyPrint);
+    }
+
+
     [Serializable]
     private class Wrapper<T>
     {
