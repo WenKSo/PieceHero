@@ -54,17 +54,15 @@ public class MapEditor3D : MonoBehaviour
             id = 0,
             nextId = 0
         };
-        Debug.Log(bd.position);
         Block3D_Data[] bds = new Block3D_Data[1];
         bds[0] = bd;
-        Debug.Log(bds.Length);
         SaveMap saveMap = new SaveMap{
             blockData = bds,
         };
         string json = JsonHelper.ToJson(bds);
-        Debug.Log(json);
         Block3D_Data[] xx = JsonHelper.FromJson<Block3D_Data>(json);
-        Debug.Log(xx[0].position);
+        //---------------------------
+        Load();
     }
 
     void Start()
@@ -126,6 +124,23 @@ public class MapEditor3D : MonoBehaviour
         }
         string json = JsonHelper.ToJson(save.blockData);
         Debug.Log(json);
+        File.WriteAllText(Application.dataPath + "/save.txt", json);
+    }
+
+    public void Load()
+    {
+        //Load
+        if (File.Exists(Application.dataPath + "/save.txt"))
+        {
+            string saveString = File.ReadAllText(Application.dataPath + "/save.txt");
+            Block3D_Data[] blockData = JsonHelper.FromJson<Block3D_Data>(saveString);
+            for(int i=0;i<blockData.Length;i++)
+            {
+                Debug.Log(blockData[i].position);
+                GameObject createdObject = Instantiate(plain, blockData[i].position, Quaternion.identity);
+            }
+
+        }
     }
 
     private class SaveMap {
