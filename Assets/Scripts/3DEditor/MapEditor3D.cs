@@ -134,11 +134,26 @@ public class MapEditor3D : MonoBehaviour
         {
             string saveString = File.ReadAllText(Application.dataPath + "/save.txt");
             Block3D_Data[] blockData = JsonHelper.FromJson<Block3D_Data>(saveString);
+            save = new SaveMap{blockData = blockData};
             for(int i=0;i<blockData.Length;i++)
             {
                 Debug.Log(blockData[i].position);
                 GameObject createdObject = Instantiate(plain, blockData[i].position, Quaternion.identity);
+                createdObject.GetComponent<Block3D>().id = blockData[i].id;
             }
+
+            GameObject[] blocks = GameObject.FindGameObjectsWithTag("Block");
+            for(int i=0;i<blocks.Length;i++)
+            {
+                for(int j=0;j<blocks.Length;j++)
+                {
+                    if(blocks[j].GetComponent<Block3D>().id == blockData[i].nextId)
+                    {
+                        blocks[i].GetComponent<Block3D>().next = blocks[j].GetComponent<Block3D>();
+                    }
+                }
+            }
+
 
         }
     }
