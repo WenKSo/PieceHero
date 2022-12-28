@@ -153,13 +153,13 @@ public class MapEditor3D : MonoBehaviour
                     }
                 }
             }
-
-
+            blockCount = blocks.Length;
         }
     }
 
     private class SaveMap {
         public Block3D_Data[] blockData; 
+        public int playerNum;
     }
 
     [Serializable]
@@ -168,5 +168,4 @@ public class MapEditor3D : MonoBehaviour
         public int id;
         public int nextId;
     }
-
 }
