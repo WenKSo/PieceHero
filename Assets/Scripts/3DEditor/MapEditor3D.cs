@@ -142,7 +142,7 @@ public class MapEditor3D : MonoBehaviour
                 createdObject.GetComponent<Block3D>().id = blockData[i].id;
             }
 
-            GameObject[] blocks = GameObject.FindGameObjectsWithTag("Block");
+            GameObject[] blocks = GameObject.FindGameObjectsWithTag("Block");  
             for(int i=0;i<blocks.Length;i++)
             {
                 for(int j=0;j<blocks.Length;j++)
