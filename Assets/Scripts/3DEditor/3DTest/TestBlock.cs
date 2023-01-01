@@ -4,15 +4,7 @@ using UnityEngine;
 
 public class TestBlock : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public int id;
+    public TestBlock next;
+    private BlockType type;
 }

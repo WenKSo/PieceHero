@@ -6,10 +6,11 @@ using System;
 
 public class TestManager : MonoBehaviour
 {
-    public GameObject plain;
+    public GameObject testBlock;
+
     private void Start()
     {
-
+        Load();
     }
 
     private void Load()
@@ -21,8 +22,8 @@ public class TestManager : MonoBehaviour
             Block3D_Data[] blockData = JsonHelper.FromJson<Block3D_Data>(saveString);
             for(int i=0;i<blockData.Length;i++)
             {
-                GameObject createdObject = Instantiate(plain, blockData[i].position, Quaternion.identity);
-                createdObject.GetComponent<Block3D>().id = blockData[i].id;
+                GameObject createdObject = Instantiate(testBlock, blockData[i].position, Quaternion.identity);
+                createdObject.GetComponent<TestBlock>().id = blockData[i].id;
             }
 
             GameObject[] blocks = GameObject.FindGameObjectsWithTag("Block");  
@@ -30,9 +31,9 @@ public class TestManager : MonoBehaviour
             {
                 for(int j=0;j<blocks.Length;j++)
                 {
-                    if(blocks[j].GetComponent<Block3D>().id == blockData[i].nextId)
+                    if(blocks[j].GetComponent<TestBlock>().id == blockData[i].nextId)
                     {
-                        blocks[i].GetComponent<Block3D>().next = blocks[j].GetComponent<Block3D>();
+                        blocks[i].GetComponent<TestBlock>().next = blocks[j].GetComponent<TestBlock>();
                     }
                 }
             }
