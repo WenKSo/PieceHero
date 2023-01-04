@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
 using FusionUtilsEvents;
+using UnityEngine.SceneManagement;
+
 
 public class EditorCanvas : MonoBehaviour
 {
@@ -15,6 +17,9 @@ public class EditorCanvas : MonoBehaviour
     [SerializeField] private GameObject _initPanel;
     [SerializeField] private GameObject _modePanel;
     [SerializeField] private GameObject _lobbyPanel;
+    [Space]
+    [SerializeField] private GameObject _infoEnter;
+    [SerializeField] private GameObject _chooseMode;
 
     public void RunButton()
     {
@@ -22,9 +27,20 @@ public class EditorCanvas : MonoBehaviour
         _modePanel.SetActive(true);
     }
 
+    public void InfoEnter()
+    {
+        _chooseMode.SetActive(false);
+        _infoEnter.SetActive(true);
+    }
+
     public void Back()
     {
         _initPanel.SetActive(true);
         _modePanel.SetActive(false);
+    }
+
+    public void StartButton()
+    {
+        SceneManager.LoadScene (sceneName:"3DTest");
     }
 }
