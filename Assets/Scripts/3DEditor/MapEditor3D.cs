@@ -1,3 +1,5 @@
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -43,7 +45,8 @@ public class MapEditor3D : MonoBehaviour
     public Mode currentMode = Mode.Move;
     public GameObject selectedObject;
 
-    private SaveMap save;
+    public SaveMap save;
+    public string saveString;
 
     private int blockCount;
 
@@ -132,7 +135,7 @@ public class MapEditor3D : MonoBehaviour
         //Load
         if (File.Exists(Application.dataPath + "/save.txt"))
         {
-            string saveString = File.ReadAllText(Application.dataPath + "/save.txt");
+            saveString = File.ReadAllText(Application.dataPath + "/save.txt");
             Block3D_Data[] blockData = JsonHelper.FromJson<Block3D_Data>(saveString);
             save = new SaveMap{blockData = blockData};
             for(int i=0;i<blockData.Length;i++)
@@ -157,13 +160,13 @@ public class MapEditor3D : MonoBehaviour
         }
     }
 
-    private class SaveMap {
+    public class SaveMap {
         public Block3D_Data[] blockData; 
         public int playerNum;
     }
 
     [Serializable]
-    private class Block3D_Data {
+    public class Block3D_Data {
         public Vector3 position;
         public int id;
         public int nextId;

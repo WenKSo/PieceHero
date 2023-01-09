@@ -19,22 +19,27 @@ public class TestManager : MonoBehaviour
         if (File.Exists(Application.dataPath + "/save.txt"))
         {
             string saveString = File.ReadAllText(Application.dataPath + "/save.txt");
-            Block3D_Data[] blockData = JsonHelper.FromJson<Block3D_Data>(saveString);
-            for(int i=0;i<blockData.Length;i++)
-            {
-                GameObject createdObject = Instantiate(testBlock, blockData[i].position, Quaternion.identity);
-                createdObject.GetComponent<TestBlock>().id = blockData[i].id;
-            }
+            LoadData(saveString);
+        }
+    }
 
-            GameObject[] blocks = GameObject.FindGameObjectsWithTag("Block");  
-            for(int i=0;i<blocks.Length;i++)
+    private void LoadData(string mapString)
+    {
+        Block3D_Data[] blockData = JsonHelper.FromJson<Block3D_Data>(mapString);
+        for(int i=0;i<blockData.Length;i++)
+        {
+            GameObject createdObject = Instantiate(testBlock, blockData[i].position, Quaternion.identity);
+            createdObject.GetComponent<TestBlock>().id = blockData[i].id;
+        }
+
+        GameObject[] blocks = GameObject.FindGameObjectsWithTag("Block");  
+        for(int i=0;i<blocks.Length;i++)
+        {
+            for(int j=0;j<blocks.Length;j++)
             {
-                for(int j=0;j<blocks.Length;j++)
+                if(blocks[j].GetComponent<TestBlock>().id == blockData[i].nextId)
                 {
-                    if(blocks[j].GetComponent<TestBlock>().id == blockData[i].nextId)
-                    {
-                        blocks[i].GetComponent<TestBlock>().next = blocks[j].GetComponent<TestBlock>();
-                    }
+                    blocks[i].GetComponent<TestBlock>().next = blocks[j].GetComponent<TestBlock>();
                 }
             }
         }
