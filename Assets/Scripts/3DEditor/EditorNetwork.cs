@@ -5,21 +5,14 @@ using Fusion;
 
 public class EditorNetwork : NetworkBehaviour
 {
-    public struct NetworkStructBlock : INetworkStruct
+     [Networked]
+     [Capacity(10)] // Sets the fixed capacity of the collection
+     NetworkArray<NetworkString<_256>> SaveNetArray { get; } =
+     MakeInitializer(new NetworkString<_256>[] { "#0", "#1", "#2", "#3" });
+    
+    public override void FixedUpdateNetwork()
     {
-        [Networked]
-        public Vector3 position { get; set; }
-
-        [Networked]
-        public int id { get; set; }
-
-        [Networked]
-        public int nextId { get; set; }
+        
     }
-
-    // For convenience, declared Networked INetworkStructs can use the ref keyword,
-    // which allows direct modification of members without needing to work with copies.
-    [Networked]
-     public ref NetworkStructBlock NetworkedStructRef => ref MakeRef<NetworkStructBlock>();
 
 }
