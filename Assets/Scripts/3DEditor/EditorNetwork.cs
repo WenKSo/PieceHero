@@ -8,11 +8,8 @@ public class EditorNetwork : NetworkBehaviour
      [Networked]
      [Capacity(10)] // Sets the fixed capacity of the collection
      NetworkArray<NetworkString<_256>> SaveNetArray { get; } =
-     MakeInitializer(new NetworkString<_256>[] { "#0", "#1", "#2", "#3" });
+     MakeInitializer(new NetworkString<_256>[] { "#0", "#1", "#2", "#3", "#4", "#5", "#6", "#7", "#8", "#9"});
     
-    public override void FixedUpdateNetwork()
-    {
-        
-    }
-
+    
 }
+   

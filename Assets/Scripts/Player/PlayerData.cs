@@ -9,7 +9,8 @@ public class PlayerData: NetworkBehaviour
     [Networked(OnChanged = nameof(OnNickUpdate))]
     public NetworkString<_16> Nick { get; set; }
     [Networked(OnChanged = nameof(OnMapUpdate))]
-    public NetworkString<_512> Map { get; set; }
+     [Capacity(10)] // Sets the fixed capacity of the collection
+     public NetworkArray<NetworkString<_256>> Map { get; }
     [Networked]
     public NetworkObject Instance { get; set; }
 
@@ -24,7 +25,12 @@ public class PlayerData: NetworkBehaviour
     [Rpc(sources: RpcSources.InputAuthority, targets: RpcTargets.StateAuthority)]
     public void RPC_SetMap(string map)
     {
-        Map = map;
+        int i = 0;
+        foreach(string saveChunk in MapEditor3D.ChunksUpto(map,256))
+        {
+            Map.Set(i,saveChunk);
+            i++;
+        }
     }
 
     public override void Spawned()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System;
+using Fusion;
 
 public class TestManager : MonoBehaviour
 {
@@ -15,12 +16,25 @@ public class TestManager : MonoBehaviour
 
     private void Load()
     {
-        //Load
-        if (File.Exists(Application.dataPath + "/save.txt"))
+        PlayerData hostData = new PlayerData();
+        string map = "";
+        
+        //Find the Host Player Data
+        PlayerData[] pds = FindObjectsOfType<PlayerData>();
+        for(int i = 0; i<pds.Length;i++)
         {
-            string saveString = File.ReadAllText(Application.dataPath + "/save.txt");
-            LoadData(saveString);
+            if(pds[i].Map[0]=="#0") continue;
+            hostData = pds[i];
         }
+
+        for (int i = 0; i < hostData.Map.Length; ++i)
+        {
+            Debug.Log(hostData.Map[i]);
+            if(hostData.Map[i].Substring(0,1) == "#") break;
+            map+=hostData.Map[i];
+        }
+        Debug.Log(map);
+        LoadData(map);
     }
 
     private void LoadData(string mapString)

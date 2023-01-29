@@ -160,7 +160,12 @@ public class MapEditor3D : MonoBehaviour
         }
     }
 
-    private static IEnumerable<string> ChunksUpto(string str, int maxChunkSize) 
+    public void Run()
+    {
+
+    }
+
+    public static IEnumerable<string> ChunksUpto(string str, int maxChunkSize) 
     {
         for (int i = 0; i < str.Length; i += maxChunkSize) 
             yield return str.Substring(i, Math.Min(maxChunkSize, str.Length-i));
