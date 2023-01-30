@@ -19,6 +19,9 @@ public class FusionHelper : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
+        int count=0;
+        foreach(var p in runner.ActivePlayers) count++;
+        if(count>4) return;
         if (runner.IsServer)
         {
             runner.Spawn(PlayerDataNO, inputAuthority: player);
