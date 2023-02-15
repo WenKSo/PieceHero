@@ -1719,6 +1719,7 @@ MonoBehaviour:
   teleport: {fileID: 0}
   currentMode: 0
   selectedObject: {fileID: 0}
+  saveString: 
 --- !u!4 &221782236
 Transform:
   m_ObjectHideFlags: 0

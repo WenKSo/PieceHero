@@ -6,7 +6,7 @@ public class Block3D : MonoBehaviour
 {
     public int id;
     public Block3D next;
-    private BlockType type;
+    public BlockType type;
     private Vector3 mOffset;
     private float mZCoord;
 

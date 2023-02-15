@@ -1,5 +1,3 @@
-
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -123,6 +121,7 @@ public class MapEditor3D : MonoBehaviour
                 position = blocks[i].transform.position,
                 id = blocks[i].GetComponent<Block3D>().id,
                 nextId = blocks[i].GetComponent<Block3D>().next.id,
+                blockType = blocks[i].GetComponent<Block3D>().type
             };
         }
         string json = JsonHelper.ToJson(save.blockData);
@@ -140,8 +139,22 @@ public class MapEditor3D : MonoBehaviour
             save = new SaveMap{blockData = blockData};
             for(int i=0;i<blockData.Length;i++)
             {
-                Debug.Log(blockData[i].position);
-                GameObject createdObject = Instantiate(plain, blockData[i].position, Quaternion.identity);
+                GameObject createdObject;
+                switch(blockData[i].blockType)
+                {
+                    case BlockType.Plain:
+                        createdObject = Instantiate(plain, blockData[i].position, Quaternion.identity);
+                        break;
+                    case BlockType.Start:
+                        createdObject = Instantiate(start, blockData[i].position, Quaternion.identity);
+                        break;
+                    case BlockType.Finish:
+                        createdObject = Instantiate(end, blockData[i].position, Quaternion.identity);
+                        break;
+                    default:
+                        createdObject = Instantiate(plain, blockData[i].position, Quaternion.identity);
+                        break;
+                }
                 createdObject.GetComponent<Block3D>().id = blockData[i].id;
             }
 
@@ -181,5 +194,6 @@ public class MapEditor3D : MonoBehaviour
         public Vector3 position;
         public int id;
         public int nextId;
+        public BlockType blockType;
     }
 }

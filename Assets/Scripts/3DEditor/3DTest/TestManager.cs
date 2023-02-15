@@ -8,6 +8,8 @@ using Fusion;
 public class TestManager : MonoBehaviour
 {
     public GameObject testBlock;
+    public GameObject startBlock;
+    public GameObject endBlock;
 
     private void Start()
     {
@@ -42,8 +44,23 @@ public class TestManager : MonoBehaviour
         Block3D_Data[] blockData = JsonHelper.FromJson<Block3D_Data>(mapString);
         for(int i=0;i<blockData.Length;i++)
         {
-            GameObject createdObject = Instantiate(testBlock, blockData[i].position, Quaternion.identity);
-            createdObject.GetComponent<TestBlock>().id = blockData[i].id;
+            GameObject createdObject;
+                switch(blockData[i].blockType)
+                {
+                    case BlockType.Plain:
+                        createdObject = Instantiate(testBlock, blockData[i].position, Quaternion.identity);
+                        break;
+                    case BlockType.Start:
+                        createdObject = Instantiate(startBlock, blockData[i].position, Quaternion.identity);
+                        break;
+                    case BlockType.Finish:
+                        createdObject = Instantiate(endBlock, blockData[i].position, Quaternion.identity);
+                        break;
+                    default:
+                        createdObject = Instantiate(testBlock, blockData[i].position, Quaternion.identity);
+                        break;
+                }
+                createdObject.GetComponent<TestBlock>().id = blockData[i].id;
         }
 
         GameObject[] blocks = GameObject.FindGameObjectsWithTag("Block");  
@@ -64,5 +81,6 @@ public class TestManager : MonoBehaviour
         public Vector3 position;
         public int id;
         public int nextId;
+        public BlockType blockType;
     }
 }

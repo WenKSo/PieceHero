@@ -6,5 +6,5 @@ public class TestBlock : MonoBehaviour
 {
     public int id;
     public TestBlock next;
-    private BlockType type;
+    public BlockType type;
 }

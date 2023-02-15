@@ -577,6 +577,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   testBlock: {fileID: 7274291042534781555, guid: c1725dea107678142a69f27aa688ec87, type: 3}
+  startBlock: {fileID: 783304640670202671, guid: e4c594aa762b4414487f680f84039faa, type: 3}
+  endBlock: {fileID: 2296723978466525636, guid: 30eeea3188abb6c4db7c2f8e743020cc, type: 3}
 --- !u!4 &1674468306
 Transform:
   m_ObjectHideFlags: 0

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6135082146511291017}
   - component: {fileID: 6135082146511291018}
   - component: {fileID: 6135082146511291019}
-  - component: {fileID: 6135082146511291020}
   m_Layer: 0
   m_Name: Player3D
   m_TagString: Untagged
@@ -47,10 +46,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
+  Piece:
+    RawGuidValue: 6ed1cd5940016ec4f85fd59c57890bf0
   _Nickname:
     _length: 0
     _data:
       Data: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  _playerNo: 0
 --- !u!114 &6135082146511291019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,18 +76,4 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 6135082146511291018}
-  - {fileID: 6135082146511291020}
   SimulationBehaviours: []
---- !u!114 &6135082146511291020
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6135082146511291021}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc8f2cb7f39dc8343b26cc61b1b38037, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interpolationDataSource: 0
