@@ -50,6 +50,7 @@ public class MapEditor3D : MonoBehaviour
 
     private void Awake()
     {
+        //UnityEngine.Rendering.DebugManager.instance.enableRuntimeUI = false;
         Block3D_Data bd = new Block3D_Data{
             position = new Vector3(0.0f, 1.0f, 0.0f),
             id = 0,

@@ -11,8 +11,11 @@ public class TestManager : MonoBehaviour
     public GameObject startBlock;
     public GameObject endBlock;
 
+    public GameObject[] blocks;
+
     private void Start()
     {
+        Debug.developerConsoleVisible = true;
         Load();
     }
 
@@ -63,7 +66,7 @@ public class TestManager : MonoBehaviour
                 createdObject.GetComponent<TestBlock>().id = blockData[i].id;
         }
 
-        GameObject[] blocks = GameObject.FindGameObjectsWithTag("Block");  
+        blocks = GameObject.FindGameObjectsWithTag("Block");  
         for(int i=0;i<blocks.Length;i++)
         {
             for(int j=0;j<blocks.Length;j++)

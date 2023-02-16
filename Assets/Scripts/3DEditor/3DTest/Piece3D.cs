@@ -22,5 +22,17 @@ public class Piece3D : NetworkBehaviour
     private void OnBlockIDChanged()
     {
         TestManager testManager = FindObjectOfType<TestManager>();
+        currentBlock = testManager.blocks[BlockId].GetComponent<TestBlock>();
+        updatePos();
+    }
+
+    public void updatePos()
+    {
+        Vector3 pos = currentBlock.transform.position;
+        transform.position = pos;
+    }
+
+    public override void FixedUpdateNetwork() 
+    {
     }
 }

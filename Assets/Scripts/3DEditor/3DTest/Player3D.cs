@@ -24,6 +24,7 @@ public class Player3D : NetworkBehaviour
             }
         }
         //GetComponentInChildren<NicknameText>().SetupNick(Nickname.ToString());
+        SpawnPiece(Runner);
     }
 
     /// <param name="runner"></param>
@@ -38,7 +39,7 @@ public class Player3D : NetworkBehaviour
                 if(blocks[i].GetComponent<TestBlock>().type == BlockType.Start)
                     startBlock = blocks[i];
             }
-            foreach(var player in runner.ActivePlayers)
+            Debug.Log(startBlock.transform.position);
             PieceSpawnFunction(startBlock);
         }
     }
@@ -50,14 +51,14 @@ public class Player3D : NetworkBehaviour
             startBlock.transform.position, 
             Quaternion.identity, 
             PlayerID,
-            InitializeObjBeforeSpawn,
+            (Runner, NO) => PieceOnBeforeSpawn(Runner, NO, startBlock.GetComponent<TestBlock>()),
             predictionKey: null
             );
     }
 
-    private void InitializeObjBeforeSpawn(NetworkRunner runner, NetworkObject obj)
+    private void PieceOnBeforeSpawn(NetworkRunner runner, NetworkObject justSpawnedNO, TestBlock startBlock)
     {
-        
+        justSpawnedNO.GetComponent<Piece3D>().BlockId = startBlock.id;
     }
 
     [Rpc(sources: RpcSources.InputAuthority, targets: RpcTargets.StateAuthority)]

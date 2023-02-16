@@ -8097,6 +8097,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: App
       objectReference: {fileID: 0}
+    - target: {fileID: 7190651704825028655, guid: 9c1beeb32d2333a41994007cb61d763d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7190651704825028656, guid: 9c1beeb32d2333a41994007cb61d763d, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -8140,6 +8144,10 @@ PrefabInstance:
     - target: {fileID: 7190651704825028656, guid: 9c1beeb32d2333a41994007cb61d763d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7190651705137011842, guid: 9c1beeb32d2333a41994007cb61d763d, type: 3}
+      propertyPath: Flags
+      value: 2561
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c1beeb32d2333a41994007cb61d763d, type: 3}
