@@ -12,6 +12,9 @@ public class Player3D : NetworkBehaviour
     public NetworkString<_16> Nickname { get; set; }
     [Networked] public int playerNo { get; set; }
     public int PlayerID { get; private set; }
+    [Networked] public NetworkButtons ButtonsPrevious { get; set; }
+
+    private Piece3D myPiece;
 
     public override void Spawned()
     {
@@ -59,6 +62,7 @@ public class Player3D : NetworkBehaviour
     private void PieceOnBeforeSpawn(NetworkRunner runner, NetworkObject justSpawnedNO, TestBlock startBlock)
     {
         justSpawnedNO.GetComponent<Piece3D>().BlockId = startBlock.id;
+        myPiece = justSpawnedNO.GetComponent<Piece3D>();
     }
 
     [Rpc(sources: RpcSources.InputAuthority, targets: RpcTargets.StateAuthority)]
@@ -75,6 +79,30 @@ public class Player3D : NetworkBehaviour
     private void OnNickChanged()
     {
         //GetComponentInChildren<NicknameText>().SetupNick(Nickname.ToString());
+    }
+
+    public override void FixedUpdateNetwork() 
+    {
+        if (GetInput<PlayerInput>(out var input) == false) return;
+        
+        var pressed = input.Buttons.GetPressed(ButtonsPrevious);
+        var released = input.Buttons.GetReleased(ButtonsPrevious);
+
+        // store latest input as 'previous' state we had
+        ButtonsPrevious = input.Buttons;
+
+        if (pressed.IsSet(PlayerButtons.Roll))
+        {
+            Log.Debug("Pressed.");
+            Log.Debug(myPiece);
+            myPiece.currentBlock = myPiece.currentBlock.next;
+            myPiece.BlockId = myPiece.currentBlock.id;
+            if (Object.HasInputAuthority)
+            {
+                Log.Debug(PlayerID);
+                InputVariables.instance.onClicked = false;
+            }
+        }
     }
 
 }

@@ -79,6 +79,20 @@ public class TestManager : MonoBehaviour
         }
     }
 
+    public void onRoll()
+    {
+        InputVariables.instance.onClicked = !InputVariables.instance.onClicked;
+    }
+
+    public GameObject findBlock(int id)
+    {
+        foreach(GameObject b in blocks)
+        {
+            if(b.GetComponent<TestBlock>().id == id) return b;
+        }
+        return null;
+    }
+
     [Serializable]
     private class Block3D_Data {
         public Vector3 position;

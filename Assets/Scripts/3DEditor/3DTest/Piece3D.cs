@@ -12,6 +12,7 @@ public class Piece3D : NetworkBehaviour
     public override void Spawned()
     {
         TestManager testManager = FindObjectOfType<TestManager>();
+        currentBlock = testManager.findBlock(BlockId).GetComponent<TestBlock>();
     }
 
     public static void OnBlockIDChanged(Changed<Piece3D> changed)
