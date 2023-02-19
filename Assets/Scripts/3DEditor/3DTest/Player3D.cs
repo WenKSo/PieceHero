@@ -14,7 +14,7 @@ public class Player3D : NetworkBehaviour
     public int PlayerID { get; private set; }
     [Networked] public NetworkButtons ButtonsPrevious { get; set; }
 
-    private Piece3D myPiece;
+    [Networked] public Piece3D myPiece { get; private set; }
 
     public override void Spawned()
     {
@@ -84,23 +84,23 @@ public class Player3D : NetworkBehaviour
     public override void FixedUpdateNetwork() 
     {
         if (GetInput<PlayerInput>(out var input) == false) return;
-        
-        var pressed = input.Buttons.GetPressed(ButtonsPrevious);
-        var released = input.Buttons.GetReleased(ButtonsPrevious);
+        if (Runner.IsForward && Runner.IsFirstTick){
+            var pressed = input.Buttons.GetPressed(ButtonsPrevious);
+            var released = input.Buttons.GetReleased(ButtonsPrevious);
 
-        // store latest input as 'previous' state we had
-        ButtonsPrevious = input.Buttons;
+            // store latest input as 'previous' state we had
+            ButtonsPrevious = input.Buttons;
 
-        if (pressed.IsSet(PlayerButtons.Roll))
-        {
-            Log.Debug("Pressed.");
-            Log.Debug(myPiece);
-            myPiece.currentBlock = myPiece.currentBlock.next;
-            myPiece.BlockId = myPiece.currentBlock.id;
-            if (Object.HasInputAuthority)
+            if (pressed.IsSet(PlayerButtons.Roll))
             {
-                Log.Debug(PlayerID);
-                InputVariables.instance.onClicked = false;
+                Log.Debug("Pressed.");
+                myPiece.currentBlock = myPiece.currentBlock.next;
+                myPiece.BlockId = myPiece.currentBlock.id;
+                if (Object.HasInputAuthority)
+                {
+                    Log.Debug(PlayerID);
+                    InputVariables.instance.onClicked = false;
+                }
             }
         }
     }
