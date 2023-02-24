@@ -24,6 +24,7 @@ public class EditorCanvas : MonoBehaviour
     [SerializeField] private GameObject _initPanel;
     [SerializeField] private GameObject _modePanel;
     [SerializeField] private GameObject _lobbyPanel;
+    [SerializeField] private GameObject _customPanel;
     [SerializeField] private TextMeshProUGUI _lobbyPlayerText;
     [SerializeField] private TextMeshProUGUI _lobbyRoomName;
     [SerializeField] private Button _startButton;
@@ -50,6 +51,13 @@ public class EditorCanvas : MonoBehaviour
     {
         _initPanel.SetActive(true);
         _modePanel.SetActive(false);
+        _customPanel.SetActive(false);
+    }
+
+    public void Custom()
+    {
+        _initPanel.SetActive(false);
+        _customPanel.SetActive(true);
     }
 
     //Called from Button
